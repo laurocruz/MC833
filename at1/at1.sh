@@ -20,7 +20,6 @@ netdev=${netdev::-1}
 loopdev=$(ifconfig | grep LOOPBACK | awk '{print $1}')
 loopdev=${loopdev::-1}
 
-
 printf "Local IP: "
 ifconfig $netdev | grep "inet " | awk '{print $2}'
 printf "\n"
@@ -67,5 +66,3 @@ netstat | grep tcp
 echo "------------------------------------------------------ H)"
 
 telnet www.ic.unicamp.br 80
-GET /~reltech/
-host: www.ic.unicamp.br
