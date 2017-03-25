@@ -13,20 +13,25 @@ echo "------------------------------------------------------ B)"
 ping  www.lrc.ic.unicamp.br -c 5
 
 echo "------------------------------------------------------ C)"
-printf "Local IP:\n"
-ifconfig wlp8s0 | grep "inet " | awk '{print $2}'
+
+netdev=$(ifconfig | grep UP,BROADCAST,RUNNING,MULTICAST | awk '{print $1}')
+netdev=${netdev::-1}
+
+loopdev=$(ifconfig | grep LOOPBACK | awk '{print $1}')
+loopdev=${loopdev::-1}
+
+
+printf "Local IP: "
+ifconfig $netdev | grep "inet " | awk '{print $2}'
 printf "\n"
 
-printf "Public IP:\n"
+printf "Public IP: "
 curl ipinfo.io/ip
 printf "\n"
 
-printf "Interface de rede: "
-ifconfig | grep BROADCAST,RUNNING | awk '{print $1}'
-printf "\n"
+printf "Interface de rede: $netdev\n"
 
-printf "Interface de loopback: "
-ifconfig | grep LOOPBACK | awk '{print $1}'
+printf "Interface de loopback: $loopdev"
 printf "\n\n"
 
 echo "------------------------------------------------------ D)"
@@ -37,6 +42,7 @@ printf "\n\n"
 echo "------------------------------------------------------ E)"
 printf "DNS Server: "
 nmcli dev show | grep DNS | awk '{print $2}'
+
 printf "\n"
 
 for i in "${sites[@]}"

@@ -1,0 +1,442 @@
+------------------------------------------------------ A)
+PING atibaia.ic.unicamp.br (143.106.7.54) 56(84) bytes of data.
+64 bytes from atibaia.ic.unicamp.br (143.106.7.54): icmp_seq=1 ttl=63 time=0.267 ms
+64 bytes from atibaia.ic.unicamp.br (143.106.7.54): icmp_seq=2 ttl=63 time=0.419 ms
+64 bytes from atibaia.ic.unicamp.br (143.106.7.54): icmp_seq=3 ttl=63 time=0.231 ms
+64 bytes from atibaia.ic.unicamp.br (143.106.7.54): icmp_seq=4 ttl=63 time=0.311 ms
+64 bytes from atibaia.ic.unicamp.br (143.106.7.54): icmp_seq=5 ttl=63 time=0.366 ms
+64 bytes from atibaia.ic.unicamp.br (143.106.7.54): icmp_seq=6 ttl=63 time=0.483 ms
+64 bytes from atibaia.ic.unicamp.br (143.106.7.54): icmp_seq=7 ttl=63 time=0.354 ms
+64 bytes from atibaia.ic.unicamp.br (143.106.7.54): icmp_seq=8 ttl=63 time=0.382 ms
+64 bytes from atibaia.ic.unicamp.br (143.106.7.54): icmp_seq=9 ttl=63 time=0.300 ms
+64 bytes from atibaia.ic.unicamp.br (143.106.7.54): icmp_seq=10 ttl=63 time=0.299 ms
+
+--- atibaia.ic.unicamp.br ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9244ms
+rtt min/avg/max/mdev = 0.231/0.341/0.483/0.072 ms
+
+
+PING cerejeira.unicamp.br (143.106.10.174) 56(84) bytes of data.
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=1 ttl=60 time=0.395 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=2 ttl=60 time=0.488 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=3 ttl=60 time=0.386 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=4 ttl=60 time=0.468 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=5 ttl=60 time=0.480 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=6 ttl=60 time=0.490 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=7 ttl=60 time=0.460 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=8 ttl=60 time=0.469 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=9 ttl=60 time=0.476 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=10 ttl=60 time=0.500 ms
+
+--- cerejeira.unicamp.br ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9212ms
+rtt min/avg/max/mdev = 0.386/0.461/0.500/0.039 ms
+
+
+PING rubus.uspnet.usp.br (200.144.248.41) 56(84) bytes of data.
+64 bytes from webhost.uspdigital.usp.br (200.144.248.41): icmp_seq=1 ttl=249 time=3.38 ms
+64 bytes from webhost.uspdigital.usp.br (200.144.248.41): icmp_seq=2 ttl=249 time=3.58 ms
+64 bytes from webhost.uspdigital.usp.br (200.144.248.41): icmp_seq=3 ttl=249 time=3.65 ms
+64 bytes from webhost.uspdigital.usp.br (200.144.248.41): icmp_seq=4 ttl=249 time=3.50 ms
+64 bytes from webhost.uspdigital.usp.br (200.144.248.41): icmp_seq=5 ttl=249 time=3.52 ms
+64 bytes from webhost.uspdigital.usp.br (200.144.248.41): icmp_seq=6 ttl=249 time=3.53 ms
+64 bytes from webhost.uspdigital.usp.br (200.144.248.41): icmp_seq=7 ttl=249 time=3.47 ms
+64 bytes from webhost.uspdigital.usp.br (200.144.248.41): icmp_seq=8 ttl=249 time=3.49 ms
+64 bytes from webhost.uspdigital.usp.br (200.144.248.41): icmp_seq=9 ttl=249 time=3.42 ms
+64 bytes from webhost.uspdigital.usp.br (200.144.248.41): icmp_seq=10 ttl=249 time=3.64 ms
+
+--- rubus.uspnet.usp.br ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9014ms
+rtt min/avg/max/mdev = 3.385/3.522/3.653/0.098 ms
+
+
+PING yoda.unesp.br (200.145.6.90) 56(84) bytes of data.
+64 bytes from yoda.unesp.br (200.145.6.90): icmp_seq=1 ttl=59 time=3.26 ms
+64 bytes from yoda.unesp.br (200.145.6.90): icmp_seq=2 ttl=59 time=3.32 ms
+64 bytes from yoda.unesp.br (200.145.6.90): icmp_seq=3 ttl=59 time=3.33 ms
+64 bytes from yoda.unesp.br (200.145.6.90): icmp_seq=4 ttl=59 time=3.42 ms
+64 bytes from yoda.unesp.br (200.145.6.90): icmp_seq=5 ttl=59 time=3.33 ms
+64 bytes from yoda.unesp.br (200.145.6.90): icmp_seq=6 ttl=59 time=3.38 ms
+64 bytes from yoda.unesp.br (200.145.6.90): icmp_seq=7 ttl=59 time=3.41 ms
+64 bytes from yoda.unesp.br (200.145.6.90): icmp_seq=8 ttl=59 time=3.41 ms
+64 bytes from yoda.unesp.br (200.145.6.90): icmp_seq=9 ttl=59 time=3.34 ms
+64 bytes from yoda.unesp.br (200.145.6.90): icmp_seq=10 ttl=59 time=3.53 ms
+
+--- yoda.unesp.br ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9013ms
+rtt min/avg/max/mdev = 3.261/3.374/3.532/0.091 ms
+
+
+PING waldorf.cs.man.ac.uk (130.88.199.17) 56(84) bytes of data.
+64 bytes from waldorf.cs.man.ac.uk (130.88.199.17): icmp_seq=1 ttl=46 time=219 ms
+64 bytes from waldorf.cs.man.ac.uk (130.88.199.17): icmp_seq=2 ttl=46 time=219 ms
+64 bytes from waldorf.cs.man.ac.uk (130.88.199.17): icmp_seq=3 ttl=46 time=219 ms
+64 bytes from waldorf.cs.man.ac.uk (130.88.199.17): icmp_seq=4 ttl=46 time=219 ms
+64 bytes from waldorf.cs.man.ac.uk (130.88.199.17): icmp_seq=5 ttl=46 time=219 ms
+64 bytes from waldorf.cs.man.ac.uk (130.88.199.17): icmp_seq=6 ttl=46 time=219 ms
+64 bytes from waldorf.cs.man.ac.uk (130.88.199.17): icmp_seq=7 ttl=46 time=219 ms
+64 bytes from waldorf.cs.man.ac.uk (130.88.199.17): icmp_seq=8 ttl=46 time=219 ms
+64 bytes from waldorf.cs.man.ac.uk (130.88.199.17): icmp_seq=9 ttl=46 time=219 ms
+64 bytes from waldorf.cs.man.ac.uk (130.88.199.17): icmp_seq=10 ttl=46 time=219 ms
+
+--- waldorf.cs.man.ac.uk ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9013ms
+rtt min/avg/max/mdev = 219.633/219.704/219.788/0.594 ms
+
+
+PING www.u-tokyo.ac.jp (210.152.135.178) 56(84) bytes of data.
+64 bytes from 210.152.135.178 (210.152.135.178): icmp_seq=1 ttl=42 time=310 ms
+64 bytes from 210.152.135.178 (210.152.135.178): icmp_seq=2 ttl=42 time=310 ms
+64 bytes from 210.152.135.178 (210.152.135.178): icmp_seq=3 ttl=42 time=310 ms
+64 bytes from 210.152.135.178 (210.152.135.178): icmp_seq=4 ttl=42 time=310 ms
+64 bytes from 210.152.135.178 (210.152.135.178): icmp_seq=5 ttl=42 time=310 ms
+64 bytes from 210.152.135.178 (210.152.135.178): icmp_seq=6 ttl=42 time=310 ms
+64 bytes from 210.152.135.178 (210.152.135.178): icmp_seq=7 ttl=42 time=310 ms
+64 bytes from 210.152.135.178 (210.152.135.178): icmp_seq=8 ttl=42 time=310 ms
+64 bytes from 210.152.135.178 (210.152.135.178): icmp_seq=9 ttl=42 time=310 ms
+64 bytes from 210.152.135.178 (210.152.135.178): icmp_seq=10 ttl=42 time=310 ms
+
+--- www.u-tokyo.ac.jp ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9009ms
+rtt min/avg/max/mdev = 310.157/310.329/310.726/0.639 ms
+
+
+------------------------------------------------------ B)
+PING lrc-gw.ic.unicamp.br (143.106.7.163) 56(84) bytes of data.
+
+--- lrc-gw.ic.unicamp.br ping statistics ---
+5 packets transmitted, 0 received, 100% packet loss, time 4096ms
+
+------------------------------------------------------ C)
+Local IP: 143.106.16.163
+
+Public IP: 143.106.16.163
+
+Interface de rede: enp2s0
+Interface de loopback: lo
+
+------------------------------------------------------ D)
+Default Gateway: 143.106.16.148
+
+
+------------------------------------------------------ E)
+DNS Server: 
+www.ic.unicamp.br: 143.106.7.54
+
+www.unicamp.br: 143.106.10.174
+
+www.usp.br: 200.144.248.41
+
+www.unesp.br: 200.145.6.90
+
+www.cs.man.ac.uk: 130.88.199.17
+
+www.u-tokyo.ac.jp: 210.152.135.178
+
+------------------------------------------------------ F)
+traceroute to www.ic.unicamp.br (143.106.7.54), 30 hops max, 60 byte packets
+ 1  143.106.16.190 (143.106.16.190)  0.404 ms  0.586 ms  0.781 ms
+ 2  atibaia.ic.unicamp.br (143.106.7.54)  0.353 ms  0.353 ms  0.349 ms
+
+
+traceroute to www.unicamp.br (143.106.10.174), 30 hops max, 60 byte packets
+ 1  143.106.16.190 (143.106.16.190)  0.321 ms  0.446 ms  0.647 ms
+ 2  quake.lab.ic.unicamp.br (143.106.16.189)  0.379 ms  0.548 ms  0.749 ms
+ 3  area3-gw.unicamp.br (143.106.1.129)  0.463 ms  0.556 ms  0.702 ms
+ 4  * * *
+ 5  dmz-gw.unicamp.br (143.106.2.52)  0.420 ms  0.416 ms  0.471 ms
+ 6  cerejeira.unicamp.br (143.106.10.174)  0.672 ms  0.410 ms  0.589 ms
+
+
+traceroute to www.usp.br (200.144.248.41), 30 hops max, 60 byte packets
+ 1  * * *
+ 2  quake.lab.ic.unicamp.br (143.106.16.189)  0.345 ms  0.479 ms  0.684 ms
+ 3  area3-gw.unicamp.br (143.106.1.129)  0.385 ms  0.535 ms  0.633 ms
+ 4  * * ptp-nct-nbs.unicamp.br (143.106.199.13)  7.874 ms
+ 5  as28571.saopaulo.sp.ix.br (187.16.216.20)  2.449 ms  2.905 ms  2.432 ms
+ 6  border2.uspnet.usp.br (143.107.151.42)  2.857 ms  2.885 ms  3.383 ms
+ 7  143.107.249.38 (143.107.249.38)  3.481 ms  3.507 ms  3.973 ms
+ 8  * * *
+ 9  * * *
+10  * * *
+11  * * *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
+
+
+traceroute to www.unesp.br (200.145.6.90), 30 hops max, 60 byte packets
+ 1  143.106.16.190 (143.106.16.190)  0.389 ms  0.499 ms  0.735 ms
+ 2  quake.lab.ic.unicamp.br (143.106.16.189)  0.367 ms  0.494 ms  0.710 ms
+ 3  area3-gw.unicamp.br (143.106.1.129)  0.411 ms  0.606 ms  0.670 ms
+ 4  ptp-ncc-nbs.unicamp.br (143.106.199.9)  0.289 ms ptp-nct-nbs.unicamp.br (143.106.199.13)  1.917 ms ptp-ncc-nbs.unicamp.br (143.106.199.9)  0.333 ms
+ 5  * * *
+ 6  rt-asr.net.unesp.br (200.145.0.253)  2.927 ms  2.906 ms  3.432 ms
+ 7  * * *
+ 8  * * *
+ 9  * * *
+10  * * *
+11  * * *
+12  * * *
+13  * * *
+14  * * *
+15  * * *
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
+
+
+traceroute to www.cs.man.ac.uk (130.88.199.17), 30 hops max, 60 byte packets
+ 1  143.106.16.190 (143.106.16.190)  0.478 ms  0.576 ms  0.792 ms
+ 2  quake.lab.ic.unicamp.br (143.106.16.189)  0.450 ms  0.604 ms  0.768 ms
+ 3  area3-gw.unicamp.br (143.106.1.129)  0.473 ms  0.672 ms  0.724 ms
+ 4  ptp-nct-nbs.unicamp.br (143.106.199.13)  0.386 ms  0.380 ms *
+ 5  * * *
+ 6  sp-sp2.bkb.rnp.br (200.143.253.37)  2.952 ms  2.420 ms  2.897 ms
+ 7  et-3-3-0.469.rtsw.wash.net.internet2.edu (64.57.28.61)  138.148 ms  138.154 ms  138.068 ms
+ 8  internet2.mx1.lon.uk.geant.net (62.40.124.44)  212.767 ms  212.862 ms  213.167 ms
+ 9  janet-gw.mx1.lon.uk.geant.net (62.40.124.198)  212.851 ms  212.845 ms  213.161 ms
+10  ae29.londpg-sbr2.ja.net (146.97.33.2)  214.139 ms  213.668 ms  213.741 ms
+11  ae31.erdiss-sbr2.ja.net (146.97.33.22)  216.995 ms  217.566 ms  217.558 ms
+12  ae29.manckh-sbr1.ja.net (146.97.33.42)  219.044 ms  219.065 ms  219.028 ms
+13  nnw.manckh-sbr1.ja.net (146.97.41.62)  219.772 ms  219.072 ms  219.192 ms
+14  gw-man-kb2.netnw.net.uk (194.66.27.18)  219.600 ms  219.115 ms  219.120 ms
+15  gw-uom-kb.its.manchester.ac.uk (194.66.26.102)  219.279 ms  219.629 ms  219.410 ms
+16  130.88.249.185 (130.88.249.185)  220.173 ms  220.150 ms  220.047 ms
+17  gw-jh.cnw.its.manchester.ac.uk (130.88.249.178)  220.326 ms  220.742 ms  219.926 ms
+18  130.88.250.35 (130.88.250.35)  220.412 ms  220.021 ms  220.417 ms
+19  gw-kilburn.its.manchester.ac.uk (192.84.75.10)  220.192 ms  220.181 ms  220.174 ms
+20  waldorf.cs.man.ac.uk (130.88.199.17)  219.800 ms !X  219.778 ms !X  219.718 ms !X
+
+
+traceroute to www.u-tokyo.ac.jp (210.152.135.178), 30 hops max, 60 byte packets
+ 1  143.106.16.190 (143.106.16.190)  0.482 ms  0.581 ms  0.759 ms
+ 2  quake.lab.ic.unicamp.br (143.106.16.189)  0.752 ms  0.920 ms  1.071 ms
+ 3  area3-gw.unicamp.br (143.106.1.129)  0.456 ms  0.672 ms  0.704 ms
+ 4  ptp-nct-nbs.unicamp.br (143.106.199.13)  9.272 ms  9.275 ms  9.296 ms
+ 5  * * *
+ 6  sp-sp2.bkb.rnp.br (200.143.253.37)  3.334 ms  3.190 ms  2.710 ms
+ 7  mia2-sp-tws.bkb.rnp.br (200.143.252.22)  157.806 ms  157.363 ms mia2-sp-par-pac.bkb.rnp.br (200.143.252.34)  144.309 ms
+ 8  xe-0-0-26-2.a01.miamfl02.us.bb.gin.ntt.net (129.250.202.93)  109.700 ms  133.724 ms  109.724 ms
+ 9  ae-5.r05.miamfl02.us.bb.gin.ntt.net (129.250.3.166)  295.234 ms  271.452 ms  271.498 ms
+10  ae-4.r21.miamfl02.us.bb.gin.ntt.net (129.250.3.172)  133.614 ms  157.468 ms  157.464 ms
+11  ae-4.r22.dllstx09.us.bb.gin.ntt.net (129.250.2.219)  168.318 ms  168.274 ms  164.714 ms
+12  ae-5.r22.lsanca07.us.bb.gin.ntt.net (129.250.7.69)  180.762 ms  181.542 ms  202.016 ms
+13  ae-15.r25.osakjp02.jp.bb.gin.ntt.net (129.250.2.177)  273.757 ms  296.787 ms  274.883 ms
+14  ae-24.r01.osakjp02.jp.bb.gin.ntt.net (129.250.5.49)  291.458 ms  283.500 ms  273.300 ms
+15  xe-0-4-0-7.r01.osakjp02.jp.ce.gin.ntt.net (61.200.80.218)  305.491 ms  282.249 ms  281.022 ms
+16  * * *
+17  * * *
+18  * * *
+19  * * *
+20  * * *
+21  * * *
+22  * * *
+23  * * *
+24  * * *
+25  * * *
+26  * * *
+27  * * *
+28  * * *
+29  * * *
+30  * * *
+
+
+------------------------------------------------------ G)
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:40324 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:41570 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:41662 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:42858 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:43018 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:39886 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:41512 TIME_WAIT  
+tcp        0      0 xaveco.lab.ic.unica:ssh tanatau.ic.unicam:38898 ESTABLISHED
+tcp        0      0 xaveco.lab.ic.unica:ssh nirvana.lab.ic.un:39688 ESTABLISHED
+tcp        0    268 xaveco.lab.ic.unica:ssh 189-19-113-158.ds:50394 ESTABLISHED
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:43058 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:40066 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:40112 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:42970 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:42406 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:42568 TIME_WAIT  
+tcp        0      0 xaveco.lab.ic.unica:ssh tanatau.ic.unicam:42607 ESTABLISHED
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:41442 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:40042 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:43124 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:40330 TIME_WAIT  
+tcp        0      0 xaveco.lab.ic.unica:ssh tanatau.ic.unicam:41814 ESTABLISHED
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:42734 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:40416 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:39914 TIME_WAIT  
+tcp        0      0 xaveco.lab.ic.uni:55980 mingau.lab.ic.unic:ldap ESTABLISHED
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:42900 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:40386 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:39998 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:41290 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:42796 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:43098 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:40020 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:43046 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:42624 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:43170 ESTABLISHED
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:43134 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:39834 TIME_WAIT  
+tcp        0      0 xaveco.lab.ic.unica:ssh tanatau.ic.unicam:37861 ESTABLISHED
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:40430 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:43164 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:39892 TIME_WAIT  
+tcp        0      0 xaveco.lab.ic.unica:850 franjinha.lab.ic.un:nfs ESTABLISHED
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:41306 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:42434 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:40114 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:39858 TIME_WAIT  
+tcp        0      0 xaveco.lab:zabbix-agent sauron.lab.ic.uni:42656 TIME_WAIT  
+------------------------------------------------------ H)
+Trying 143.106.7.54...
+Connected to www.ic.unicamp.br.
+Escape character is '^]'.
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Relatórios Técnicos - Technical Reports — Instituto de
+Computação - UNICAMP</title>
+</head>
+<body style="background-color: rgb(255, 255, 234);">
+<div
+ style="border: 0pt none ; background-color: rgb(0, 0, 140); padding-bottom: 70px;">
+<img src="imagens/logo.jpg" align="left"> <img
+ src="imagens/logo_unicamp.png" height="65" align="right" width="56"> </div>
+<div style="color: rgb(0, 0, 140); margin-left: 80px;" alink="#ee0000"
+ link="#0000ee" vlink="#551a8b">
+<h3 style="font-family: Lucida Grande,sans-serif; font-size: 100%;">Relatórios
+Técnicos
+- Technical Reports</h3>
+<h3 style="font-family: Lucida Grande,sans-serif; font-size: 80%;">
+Acesso aos Relatórios Técnicos - Access to Technical Reports</h3>
+<div style="width: 20cm; text-align: justify;">
+<table
+ style="width: 350pt; margin-left: 36pt; border-collapse: collapse;"
+ cellpadding="0" cellspacing="0" width="350">
+  <tbody>
+     <tr>
+      <td><a href=""></a></td>
+      <td><a href=""></a></td>
+      <td><a href="2017/abstracts.html">2017</a></td>
+       <td><a href="2016/abstracts.html">2016</a></td>
+    </tr>
+     <tr>
+      <td><a href="2015/abstracts.html">2015</a></td>
+      <td><a href="2014/abstracts.html">2014</a></td>
+      <td><a href="2013/abstracts.html">2013</a></td>
+      <td><a href="2012/abstracts.html">2012</a></td>
+    </tr>
+    <tr>
+      <td><a href="2011/abstracts.html">2011</a></td>
+      <td><a href="2010/abstracts.html">2010</a></td>
+      <td><a href="2009/abstracts.html">2009</a></td>
+      <td><a href="2008/abstracts.html">2008</a></td>
+    </tr>
+    <tr>
+      <td><a href="2007/abstracts.html">2007</a></td>
+      <td><a href="2006/abstracts.html">2006</a></td>
+      <td><a href="2005/abstracts.html">2005</a></td>
+      <td><a href="2004/abstracts.html">2004</a></td>
+    </tr>
+    <tr>
+      <td><a href="2003/abstracts.html">2003</a></td>
+      <td><a href="2002/abstracts.html">2002</a></td>
+      <td><a href="2001/abstracts.html">2001</a></td>
+      <td><a href="2000/abstracts.html">2000</a></td>
+    </tr>
+    <tr>
+      <td><a href="1999/abstracts.html">1999</a></td>
+      <td><a href="1998/abstracts.html">1998</a></td>
+      <td><a href="1997/abstracts.html">1997</a></td>
+      <td><a href="1996/abstracts.html">1996</a></td>
+    </tr>
+    <tr>
+      <td><a href="1995/abstracts.html">1995</a></td>
+      <td><a href="1994/abstracts.html">1994</a></td>
+      <td><a href="1993/abstracts.html">1993</a></td>
+      <td><a href="1992/abstracts.html">1992</a></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3 style="font-family: Lucida Grande,sans-serif; font-size: 80%;">
+Relatórios de PFG - Undergrad Final Project Reports</h3>
+<div style="width: 20cm; text-align: justify;">
+<table
+ style="width: 350pt; margin-left: 36pt; border-collapse: collapse;"
+ cellpadding="0" cellspacing="0" width="350">
+  <tbody>
+     <tr>
+      <td><a href=""></a></td>
+      <td><a href=""></a></td>
+      <td><a href=""></a></td>
+      <td><a href="PFG/2016/abstracts.html">2016</a></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h3 style="font-family: Lucida Grande,sans-serif; font-size: 100%;">Contato
+-
+Contact
+us</h3>
+<a href="mailto:reltech@ic.unicamp.br">editores - editors</a>
+<h3 style="font-family: Lucida Grande,sans-serif; font-size: 100%;">Autores</h3>
+<a href="instrucoes.html">instruções</a> </div>
+<hr>
+<div style="background-color: rgb(255, 255, 238);"> <img
+ src="imagens/logo_unicamp_50anos.png" height="66" hspace="0"
+ align="left" width="122">
+<table border="0" cellpadding="5" cellspacing="5" width="100%">
+  <tbody>
+    <tr>
+      <td align="right">
+      <div style="text-align: center;"> Instituto de Computação ::
+Universidade Estadual de Campinas <br>
+Av. Albert Einstein, 1251 - Cidade Universitária Zeferino Vaz •
+13083-852 Campinas, SP - Brasil • Fone: [19] 3521-5838 </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div><br>
+</div>
+</body>
+</html>
