@@ -1,0 +1,11 @@
+*Em duplas*
+Entrega: 06/04 - entrega impressa
+Utilizando as ferramentas descritas na aula, realize as tarefas abaixo nas salas de laboratório explicando a execução no seu relatório:
+(a) Envie 10 pacotes que verificam o tempo de ida e volta a 5 endereços web de sua escolha (10 pacotes para cada endereço). Inclua no relatório os comandos utilizados e as saídas obtidas, além de uma análise sobre as informações observadas.
+(b) Verifique se o host www.lrc.ic.unicamp.br é alcançável utilizando a ferramenta ping. Depois, acesse a URL no seu browser. Explique.
+(c) Mostre passo a passo e explique: Descubra o endereço IP da sua máquina utilizando alguma ferramenta vista em sala. Identifique qual interface de rede está sendo utilizada para transmitir dados entre o seu computador e a Internet. Identifique a interface de "loopback" e utilize uma das ferramentas para alterar o número de pacotes enviados e recebidos. 
+(d) Identifique a rota padrão na sua máquina.
+(e) Qual é o servidor DNS configurado na sua estação? Obtenha os endereços IP de www.ic.unicamp.br, www.unicamp.br, www.usp.br, www.unesp.br, www.cs.man.ac.uk, www.u-tokyo.ac.jp.
+(f) Quais e quantos são os roteadores identificáveis nos caminhos para os endereços do item (e)? Identifique enlaces de longa distância para o endereço fora do Brasil e explique como fez para identificá-los.
+(g) Identifique 5 conexões TCP do seu computador, bem como as portas de origem e destino. Acesse o site www.unicamp.br e repita o comando que utilizou para identificar as conexões. Apresente as informações que encontrou sobre a conexão com www.unicamp.br.
+(h) Utilize telnet para receber o arquivo html da página http://www.ic.unicamp.br/~reltech/ e apresente no relatório os passos utilizados, explicando-os. Tente, de forma similar, realizar uma conexão telnet com localhost. O que ocorre? Por quê?
