@@ -1,5 +1,4 @@
-# Atividade 1
-
+# Atividade 1.1
 
 ## (a)
 
@@ -430,3 +429,58 @@ telnet: connect to address 127.0.0.1: Connection refused
 Ambos os endereços de loopback são tentados, primeiro ::1 (IPv6) e
 depois 127.0.0.1 (IPv4), porém o socket não está aberto do outro lado,
 e a conexão é recusada pelo SO com um pacote com a flag RST ligada.
+
+# Atividade 1.2
+
+Utilizaremos um arquivo tcpdump que foi capturado em transmissões de dados entre as máquinas `willow` e `maple`:
+
+```
+wget www.ic.unicamp.br/~bit/mc833/tcpdump.cap
+```
+
+Originalmente, o arquivo não está em formato texto e é necessário convertê-lo:
+
+```
+tcpdump -r tcpdump.cap > tcpdump.txt
+```
+
+O arquivo texto resultante contém várias linhas que representam os pacotes capturados durante a execução do tcpdump.
+
+Utilizando o arquivo acima e o tcpdump com os parâmetros adequados, responda:
+
+## 1.
+
+Qual é o endereço IP do nós `maple` e `willow`?
+
+`maple`: 128.30.4.223
+`willow`: 128.30.4.222
+
+## 2.
+
+Qual é o endereço MAC dos nós `maple` e `willow`?
+
+`maple`: 00:16:ea:8e:e5:8a
+`willow`: 00:16:ea:8e:28:44
+
+## 3.
+
+Qual é a porta TCP usada pelos nós `maple` e `willow`?
+
+`maple`: 5001
+`willow`: 39675
+
+## 4.
+
+Quantos kilobytes foram transferidos durante essa sessão TCP? Qual foi a duração da sessão? Baseado nas respostas anteriores, qual é a vazão (em Kilobytes/segundo) do fluxo TCP entre willow e maple?
+
+26112 bytes, durou 2.87s, portanto, a vazão é de 9098 KB/s.
+
+## 5.
+
+Qual é o round-trip time (RTT), em segundos, entre `willow` e `maple`  baseado no pacote 1473:2921 e seu acknowledgment? Veja o arquivo `outfile.txt` e encontre o RTT do pacote 13057:14505. Por que esses dois valores são diferentes?
+
+0.007815 s
+0.021750 s
+explicar aqui
+
+6. Identifique os procedimentos three-way handshake e connection termination. Coloque as mensagens envolvidas em uma tabela e, para cada um dos procedimentos, inclua a fonte, o destino e informações das mensagens.
