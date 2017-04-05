@@ -107,7 +107,7 @@ A principal informação que podemos tirar da saída do `$ ping` são os valores
 
 Isso pode ser visto facilmente nos resultados acima, pois a lista de pings é listada em ordem crescente de distância do host para o servidor, e analisando o RTT médio, é possível ver que os RTT's aumentam
 
-## (b) TERMINAR DE EXPLICAR PORQUE O SITE NÃO É ALCANÇÁVEL PELO PING
+## (b)
 
 ### `$ ping www.lrc.ic.unicamp.br -c 5 `
 
@@ -118,7 +118,10 @@ PING lrc-gw.ic.unicamp.br (143.106.7.163) 56(84) bytes of data.
 5 packets transmitted, 0 received, 100% packet loss, time 4096ms
 ```
 
-Podemos ver que o servidor em questão ignora os pacotes enviados pelo `ping`, de forma que nosso host não obtém os pacotes de resposta.
+Podemos ver que o servidor em questão ignora os pacotes enviados pelo
+`ping`, de forma que nosso host não obtém os pacotes de
+resposta. Outra possibilidade seria que algum nó no caminho até o
+host, possivelmente um firewall, esteja descartando os pacotes.
 
 
 ## (c) ALTERAR NUMERO DE PACOTES ENVIADOS e RECEBIDOS PELA INTERFACE LOOPBACK
