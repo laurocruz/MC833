@@ -479,8 +479,27 @@ Quantos kilobytes foram transferidos durante essa sessão TCP? Qual foi a duraç
 
 Qual é o round-trip time (RTT), em segundos, entre `willow` e `maple`  baseado no pacote 1473:2921 e seu acknowledgment? Veja o arquivo `outfile.txt` e encontre o RTT do pacote 13057:14505. Por que esses dois valores são diferentes?
 
-0.007815 s
-0.021750 s
-explicar aqui
+`1473:2921`: 0.007815 s
+`13057:14505`: 0.021750 s
 
-6. Identifique os procedimentos three-way handshake e connection termination. Coloque as mensagens envolvidas em uma tabela e, para cada um dos procedimentos, inclua a fonte, o destino e informações das mensagens.
+A diferença se dá pelo fato que no segundo momento, já há dados em
+buffer, esperando transmissão ou acknowledgment.
+
+## 6.
+
+Identifique os procedimentos three-way handshake e connection
+termination. Coloque as mensagens envolvidas em uma tabela e, para
+cada um dos procedimentos, inclua a fonte, o destino e informações das
+mensagens.
+
+### Three way handshake
+
+|Fonte|Destino|Informações|
+|---|---|---|
+|`willow`|`maple`|Flag `SYN`|
+|---|---|---|
+|`maple`|`willow`|Flags `SYN`,`ACK`|
+|---|---|---|
+|`willow`|`maple`|Flag `ACK`|
+
+### Connection termination
