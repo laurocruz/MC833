@@ -126,7 +126,7 @@ host, possivelmente um firewall, esteja descartando os pacotes.
 Por outro lado, os pacotes TCP para a porta 80 são encaminhados e
 respondidos pela máquina, possibilitando que se acesse a página web.
 
-## (c) ALTERAR NUMERO DE PACOTES ENVIADOS e RECEBIDOS PELA INTERFACE LOOPBACK
+## (c)
 
 ### Input:
 ```
@@ -155,7 +155,33 @@ Interface de rede: enp2s0
 Interface de loopback: lo
 ```
 
-Os IP locais e públicos no caso em questão (PC do IC) são o mesmo pois a máquina não está ligada a rede através de um roteador.
+Os IP locais e públicos no caso em questão (PC do IC) são o mesmo pois
+a máquina não está ligada à Internet através de um gateway NAT.
+
+### Input:
+```
+ifconfig lo | grep packets
+ping 127.0.0.1 -c 1
+ifconfig lo | grep packets
+```
+
+### Output:
+```
+        RX packets 20  bytes 1072 (1.0 KiB)
+        TX packets 20  bytes 1072 (1.0 KiB)
+PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
+64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.019 ms
+
+--- 127.0.0.1 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.019/0.019/0.019/0.000 ms
+        RX packets 22  bytes 1240 (1.2 KiB)
+        TX packets 22  bytes 1240 (1.2 KiB)
+```
+
+O comando `ping` foi disparado contra a própria máquina usando o
+endereço de loopback, `127.0.0.1`, fazendo com que pacotes sejam
+enviados e recebidos nessa interface.
 
 
 ## (d)

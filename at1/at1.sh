@@ -33,6 +33,13 @@ printf "Interface de rede: $netdev\n"
 printf "Interface de loopback: $loopdev"
 printf "\n\n"
 
+printf "Alterando número de pacotes enviados pela interface loopback:\n"
+
+ifconfig lo | grep packets
+ping 127.0.0.1 -c 1
+ifconfig lo | grep packets
+printf "\n\n"
+
 echo "------------------------------------------------------ D)"
 printf "Default Gateway: "
 route -n | grep UG | awk '{print $2}'
