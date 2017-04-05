@@ -482,8 +482,6 @@ Qual é o round-trip time (RTT), em segundos, entre `willow` e `maple`  baseado 
 `1473:2921`: 0.007815 s
 `13057:14505`: 0.021750 s
 
-# É POR AÍ MAS A EXPLICAÇÃO TÁ UMA BOSTA
-
 A diferença se dá pelo fato que no segundo momento, já há dados em
 buffer, esperando transmissão ou acknowledgment.
 
@@ -498,13 +496,15 @@ mensagens.
 
 |Fonte|Destino|Informações|
 |---|---|---|
-|`willow`|`maple`|Flag `SYN`|
-|`maple`|`willow`|Flags `SYN`,`ACK`|
-|`willow`|`maple`|Flag `ACK`|
+|`willow`|`maple`|Flag `SYN` J|
+|`maple`|`willow`|Flags `SYN` K, `ACK` J+1|
+|`willow`|`maple`|Flag `ACK` K+1|
 
 ### Connection termination
 
 |Fonte|Destino|Informações|
 |---|---|---|
-|`maple`|`willow`|Flags `FIN`,`ACK`|
-|`willow`|`maple`|Flag `ACK`|
+|`maple`|`willow`|Flag `FIN` M|
+|`willow`|`maple`|Flag `ACK` M+1|
+|`willow`|`maple`|Flag `FIN` N|
+|`maple`|`willow`|Flag `ACK` N+1|
