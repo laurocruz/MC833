@@ -363,43 +363,70 @@ Neste traceroute temos algumas discrepâncias como o caminho entre os roteadores
 
 ## (g)
 
-As seguintes conexões TCP não foram obtidas em um computador do IC, mas em um computador pessoal. Isso foi feito pois os dados obtidos estavam sendo feito em uma máquina do IC utilizando ssh.
-
-Utilizando o comando `$ netstat`:
+Utilizando o comando `$ netstat -n | grep tcp`:
 ```
-tcp        0      0 192.168.0.105:33200     ce-in-f188.1e100.:https ESTABLISHED
-tcp        0      0 192.168.0.105:50592     cb-in-f188.1e100.:https ESTABLISHED
-tcp        0      0 192.168.0.105:50394     xaveco.lab.ic.unica:ssh ESTABLISHED
-tcp        0      0 192.168.0.105:46422     stackoverflow.com:https ESTABLISHED
-tcp        0      0 192.168.0.105:46494     stackoverflow.com:https ESTABLISHED
-```
-
-O endereço IP `192.168.0.105` é o endereço do host (endereço local) e os endereços à direita (ex:stackoverflow.com) são os endereços do servidor. Separados por ':', ao lado dos endereços do host tempos a porta de origem e ao lado dos endereços do servidor temos as portas de destino. Pode-se perceber que das 5 conexões, quatro são https (porta 443) e uma é a conexão ssh com o IC (porta 22).
-
-Acessando o site `www.unicamp.br` é possível perceber que abrem-se várias novas conexões com o servidor do site (`cerejeira.unic`):
+tcp        0      0 143.106.16.52:36468     149.154.175.16:443      TIME_WAIT  
+tcp        0      0 143.106.16.52:32970     172.217.29.101:443      ESTABLISHED
+tcp        0      0 143.106.16.52:43766     149.154.167.57:443      TIME_WAIT  
+tcp        0      0 143.106.16.52:55978     64.233.190.189:443      ESTABLISHED
+tcp        0      0 143.106.16.52:35136     54.201.1.199:443        ESTABLISHED
+tcp        0      0 143.106.16.52:36878     192.30.253.125:443      ESTABLISHED
+tcp        0      0 143.106.16.52:36418     149.154.175.16:443      ESTABLISHED
+tcp        0      0 143.106.16.52:36446     149.154.175.16:443      ESTABLISHED
+tcp        0      0 143.106.16.52:760       143.106.16.135:2049     ESTABLISHED
 
 ```
-tcp        0      0 192.168.0.105:50094     cerejeira.unic:www-http ESTABLISHED
-tcp        0      0 192.168.0.105:50086     cerejeira.unic:www-http ESTABLISHED
-tcp        0      0 192.168.0.105:50088     cerejeira.unic:www-http ESTABLISHED
-tcp        0      0 192.168.0.105:50084     cerejeira.unic:www-http ESTABLISHED
-tcp        0      0 192.168.0.105:50090     cerejeira.unic:www-http ESTABLISHED
-tcp        0      0 192.168.0.105:50092     cerejeira.unic:www-http ESTABLISHED
+
+O endereço `143.106.16.52`... é o endereço do host (endereço local) e
+os endereços à direita (ex:`149.154.175.16`) são os endereços do
+servidor. Separados por ':', ao lado dos endereços do host tempos a
+porta de origem e ao lado dos endereços do servidor temos as portas de
+destino. Pode-se perceber que das 5 conexões, quatro são https (porta
+443) e uma é a conexão NFS, provavelmente da home remota (porta 2049).
+
+Acessando o site `www.unicamp.br` é possível perceber que abre-se
+uma nova conexão com o servidor do site (`94.31.29.55`):
+
+```
+tcp        0      0 143.106.16.52:46764     94.31.29.55:80          ESTABLISHED
 ```
 
 Podemos perceber que a conexão com o site é http (porta 80), ao contrário das mostradas anteriormente.
 
-## (h) EXPLICAR O QUE ACONTECE QUANDO SE TENTA REALIZAR CONEXAO TELNET COM LOCALHOST
+## (h)
 
-Shell Input:
+### Shell Input:
 ```
 telnet www.ic.unicamp.br 80
 ```
-Cria conexção telnet com o servidor do site pela porta 80 (HTTP).
+Cria conexão telnet com o servidor do site pela porta 80 (HTTP).
 
-Telnet input:
+### Telnet input:
 ```
 host: www.ic.unicamp.br
 GET /~reltech/
 ```
 Obtém o html da página com o caminho descrito em `GET`
+
+Ao tentar se fazer o mesmo com localhost:
+
+### Shell input:
+
+```
+telnet localhost 80
+```
+
+A conexão falha:
+
+### Output:
+
+```
+Trying ::1...
+telnet: connect to address ::1: Connection refused
+Trying 127.0.0.1...
+telnet: connect to address 127.0.0.1: Connection refused
+```
+
+Ambos os endereços de loopback são tentados, primeiro ::1 (IPv6) e
+depois 127.0.0.1 (IPv4), porém o socket não está aberto do outro lado,
+e a conexão é recusada pelo SO com um pacote com a flag RST ligada.
