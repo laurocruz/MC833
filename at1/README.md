@@ -1,3 +1,6 @@
+### Lauro Cruz e Souza - 156175
+### Pedro Emílio Machado de Brito - 137264
+
 # Atividade 1.1
 
 ## (a)
@@ -129,14 +132,14 @@ respondidos pela máquina, possibilitando que se acesse a página web.
 
 ### Input:
 ```
-netdev=$(ifconfig | grep UP,BROADCAST,RUNNING,MULTICAST | awk '{print $1}')
+netdev=$(ifconfig | grep UP,BROADCAST,RUNNING,MULTICAST
 netdev=${netdev::-1}
 
-loopdev=$(ifconfig | grep LOOPBACK | awk '{print $1}')
+loopdev=$(ifconfig | grep LOOPBACK)
 loopdev=${loopdev::-1}
 
 printf "Local IP: "
-ifconfig $netdev | grep "inet " | awk '{print $2}'
+ifconfig $netdev | grep "inet "
 
 printf "Public IP: "
 curl ipinfo.io/ip
@@ -188,7 +191,7 @@ enviados e recebidos nessa interface.
 ### Input:
 ```
 printf "Default Gateway: "
-route -n | grep UG | awk '{print $2}'
+route -n | grep UG
 ```
 
 ### Output:
@@ -201,14 +204,14 @@ Default Gateway: 143.106.16.148
 ### Input:
 ```
 printf "DNS Server: "
-nmcli dev show | grep DNS | awk '{print $2}'
+nmcli dev show | grep DNS
 
 declare -a sites=("www.ic.unicamp.br" "www.unicamp.br" "www.usp.br" "www.unesp.br" "www.cs.man.ac.uk" "www.u-tokyo.ac.jp")
 
 for i in "${sites[@]}"
 do
     printf "$i: "
-    nslookup $i | grep Address | awk '{l++}l==2' | awk '{print $2}'
+    nslookup $i | grep Address | awk '{l++}l==2'
 done
 ```
 
