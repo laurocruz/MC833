@@ -123,6 +123,8 @@ Podemos ver que o servidor em questão ignora os pacotes enviados pelo
 resposta. Outra possibilidade seria que algum nó no caminho até o
 host, possivelmente um firewall, esteja descartando os pacotes.
 
+Por outro lado, os pacotes TCP para a porta 80 são encaminhados e
+respondidos pela máquina, possibilitando que se acesse a página web.
 
 ## (c) ALTERAR NUMERO DE PACOTES ENVIADOS e RECEBIDOS PELA INTERFACE LOOPBACK
 
