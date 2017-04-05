@@ -497,9 +497,7 @@ mensagens.
 |Fonte|Destino|Informações|
 |---|---|---|
 |`willow`|`maple`|Flag `SYN`|
-|---|---|---|
 |`maple`|`willow`|Flags `SYN`,`ACK`|
-|---|---|---|
 |`willow`|`maple`|Flag `ACK`|
 
 ### Connection termination
