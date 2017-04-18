@@ -1,0 +1,111 @@
+Projeto 1 - implementaÃ§Ã£o de cliente-servidor simples usando sockets.
+Linguagem: C
+Data de entrega: 4 de maio.
+ConteÃºdo da entrega: cÃ³digo fonte com a implementaÃ§Ã£o especificada e relatÃ³rio descrevendo a implementaÃ§Ã£o, as funÃ§Ãµes utilizadas e mostrando os testes realizados para validar a implementaÃ§Ã£o.
+Em dupla.
+Forma de entrega: arquivo comprimido (tar.gz, zip.) via classroom.google.com
+
+- Implemente um cliente e um servidor TCP usando sockets em C. VocÃª pode basear-se nos esqueletos abaixo. 
+- O cliente que se conecta ao servidor deve poder enviar mensagens de texto, que sÃ£o reproduzidas na janela do servidor. O servidor responde com a mesma mensagem, que Ã© entÃ£o exibida na janela do cliente (eco). O envio e recebimento das mensagens podem ser feitos linha a linha.
+- O cliente recebe como parÃ¢metro, na linha de comando, o hostname do servidor.
+- Seus programas devem emitir mensagens de erro quando necessÃ¡rio (nÃºmero incorreto de argumentos, erro na resoluÃ§Ã£o de nome, erro na alocaÃ§Ã£o do socket, erro nas chamadas accept, connect, etc).
+
+
+FunÃ§Ãµes Ãºteis:
+gethostbyname
+socket
+connect
+bind
+listen
+accept
+send
+recv
+htons
+bcopy
+close
+
+************************** 
+******** Esqueleto 1 *****
+************************** 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <netdb.h>
+
+#define SERVER_PORT 12345
+#define MAX_LINE 256
+
+int main(int argc, char * argv[])
+{
+        struct hostent *host_address;
+        struct sockaddr_in socket_address;
+        char *host;
+        char buf[MAX_LINE];
+        int s;
+        int len;
+
+
+	/* verificaÃ§Ã£o de argumentos */
+	(...)
+
+	/* traduÃ§Ã£o de nome para endereÃ§o IP */
+	(...)
+
+        /* criaÃ§Ã£o da estrutura de dados de endereÃ§o */
+        bzero((char *)&socket_address, sizeof(socket_address));
+	(...)
+
+        /* criaÃ§Ã£o de socket ativo*/
+	(...)
+
+	/* estabelecimento da conexÃ£o */
+	(...)
+
+        /* ler e enviar linhas de texto, receber eco */
+	(...)
+
+}
+
+
+
+************************** 
+******** Esqueleto 2 ***** 
+************************** 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <netdb.h>
+
+#define LISTEN_PORT 12345
+#define MAX_PENDING 5
+#define MAX_LINE 256
+
+int main()
+{
+        struct sockaddr_in socket_address;
+        char buf[MAX_LINE];
+        unsigned int len;
+        int s, new_s;
+
+        /* criaÃ§Ã£o da estrutura de dados de endereÃ§o */
+        bzero((char *)&socket_address, sizeof(socket_address));
+	(...)
+
+        /* criaÃ§Ã£o de socket passivo */
+	(...)
+
+	/* Associar socket ao descritor */
+	(...)
+
+	/* Criar escuta do socket para aceitar conexÃµes */
+	(...)
+
+        /* aguardar/aceita conexÃ£o, receber e imprimir texto na tela, enviar eco */
+	(...)
+}
+
+
+
+
