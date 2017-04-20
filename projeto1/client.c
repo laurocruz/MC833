@@ -15,18 +15,22 @@ int main(int argc, char * argv[]) {
         char buf[MAX_LINE];
         int s;
         int len;
+        int port;
 
 
 	/* verificaÃ§Ã£o de argumentos */
-	if (argc != 2)  {
+    if (argc != 2 && argc != 3)  {
         printf("ERROR: Wrong number of arguments\n");
-        printf("%s hostname\n", argv[0]);
+        printf("%s hostname [PORT]\n", argv[0]);
         exit(1);
-    }
+    } else if (argc == 3) {
+        port = atoi(argv[2]);
+    } else port = SERVER_PORT;
+
     host = argv[1];
 
-	/* traduÃ§Ã£o de nome para endereÃ§o IP */
-	host_address = gethostbyname(host);
+    /* traduÃ§Ã£o de nome para endereÃ§o IP */
+    host_address = gethostbyname(host);
 
     if (!host_address) {
         printf("ERROR: Unable to resolve hostname\n");
@@ -45,7 +49,7 @@ int main(int argc, char * argv[]) {
     
     socket_address.sin_family = AF_INET;
     socket_address.sin_addr = *(struct in_addr *)host_address->h_addr_list[0];
-    socket_address.sin_port = htons(SERVER_PORT);
+    socket_address.sin_port = htons(port);
 
 
 	/* estabelecimento da conexÃ£o */
@@ -57,12 +61,12 @@ int main(int argc, char * argv[]) {
     /* ler e enviar linhas de texto, receber eco */
 
     /* Envia texto */
-    memset(&buf, '\0', sizeof(buf));
+    memset(&buf, '\0', MAX_LINE);
     sprintf(buf, "TESTE_cli\n");
-    send(s, buf, strlen(buf), 0);
+    send(s, buf, MAX_LINE, 0);
 
     /* Recebe eco */
-    recv(s, buf, strlen(buf), 0);
+    recv(s, buf, MAX_LINE, 0);
     printf("%s\n", buf);
 
     return 0;
