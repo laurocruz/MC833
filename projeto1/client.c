@@ -40,38 +40,38 @@ int main(int argc, char * argv[]) {
 
     /* criaÃ§Ã£o de socket ativo*/
 
-        if ((s = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
-            perror("ERROR: Unable to create socket\n");
-            exit(errno);
-        }
+    if ((s = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+        perror("ERROR: Unable to create socket\n");
+        exit(errno);
+    }
 
-        /* criaÃ§Ã£o da estrutura de dados de endereÃ§o */
-        bzero((char *)&socket_address, sizeof(socket_address));
+    /* criaÃ§Ã£o da estrutura de dados de endereÃ§o */
+    bzero((char *)&socket_address, sizeof(socket_address));
 
-        socket_address.sin_family = AF_INET;
-        socket_address.sin_addr = *(struct in_addr *)host_address->h_addr_list[0];
-        socket_address.sin_port = htons(port);
+    socket_address.sin_family = AF_INET;
+    socket_address.sin_addr = *(struct in_addr *)host_address->h_addr_list[0];
+    socket_address.sin_port = htons(port);
 
 
-        /* estabelecimento da conexÃ£o */
-        if (connect(s, (struct sockaddr *) &socket_address, sizeof(socket_address)) == -1) {
-            perror("ERROR: Unable to connect to server\n");
-            exit(errno);
-        }
+    /* estabelecimento da conexÃ£o */
+    if (connect(s, (struct sockaddr *) &socket_address, sizeof(socket_address)) == -1) {
+        perror("ERROR: Unable to connect to server\n");
+        exit(errno);
+    }
 
-        /* ler e enviar linhas de texto, receber eco */
+    /* ler e enviar linhas de texto, receber eco */
 
-        /* Envia texto */
-        memset(&buf, '\0', MAX_LINE);
-        fgets(buf, MAX_LINE, stdin);
-        //sprintf(buf, "TESTE_%d", i);
-        send(s, buf, MAX_LINE, 0);
+    /* Envia texto */
+    memset(&buf, '\0', MAX_LINE);
+    fgets(buf, MAX_LINE, stdin);
+    //sprintf(buf, "TESTE_%d", i);
+    send(s, buf, MAX_LINE, 0);
 
-        /* Recebe eco */
-        recv(s, buf, MAX_LINE, 0);
-        printf("%s\n", buf);
+    /* Recebe eco */
+    recv(s, buf, MAX_LINE, 0);
+    printf("%s\n", buf);
 
-        close(s);
+    close(s);
 
     return 0;
 }
