@@ -15,12 +15,15 @@ verificados e tratados, se necessário.
 
 Algumas das mensagens de erro que obtivemos:
 
-### `ERROR: Unable to bind socket: Permission denied`: causado quando a porta
-escolhida era baixa, ou seja, privilegiada, e o binário de servidor era
-executado sem privilégios de root.
+### `ERROR: Unable to bind socket: Permission denied`:
 
-`ERROR: Unable to bind socket: Address already in use`: causado quando já havia
-uma instância do servidor presente escutando naquele endereço e porta.
+Causado quando a porta escolhida era baixa, ou seja, privilegiada, e o binário
+de servidor era executado sem privilégios de root.
+
+### `ERROR: Unable to bind socket: Address already in use`:
+
+Causado quando já havia uma instância do servidor presente escutando naquele
+endereço e porta.
 
 # client.c
 
@@ -30,10 +33,13 @@ texto e fecha a conexão ao receber o sinal CTRL-D (EOF), e então sai.
 
 Algumas das mensagens de erro que obtivemos:
 
-`ERROR: Unable to resolve hostname`: Ao tentar se conectar a um hostname inválido.
+### `ERROR: Unable to resolve hostname`:
 
-`ERROR: Unable to connect to server: Connection refused`: Ao se tentar conectar
-a uma porta onde não há um servidor escutando.
+Ao tentar se conectar a um hostname inválido.
+
+### `ERROR: Unable to connect to server: Connection refused`:
+
+Ao se tentar conectar a uma porta onde não há um servidor escutando.
 
 # Funções utilizadas nos programas:
 
@@ -59,3 +65,71 @@ criado.
 `send`: envia dados no socket.
 
 `close`: fecha o socket, terminando a conexão.
+
+# Um exemplo de sessão:
+
+Em um terminal, rodamos:
+
+### `$ ./server`
+
+e em outro
+
+### `$ ./client localhost`
+
+estabelecendo a conexão. A porta usada é implicitamente 12345, pelas constantes
+definidas em cada arquivo fonte.
+
+Várias linhas de texto são digitadas no console com o cliente aberto:
+
+```
+$ ./client localhost
+oi
+oi
+teste
+teste
+batata
+batata
+the quick brown fox jumps over the lazy dog
+the quick brown fox jumps over the lazy dog
+```
+
+Nesse ponto a combinação CTRL-D é pressionada e o cliente termina. É possivel
+ler as linhas digitadas e logo em seguida, o eco do servidor.
+
+Enquanto isso, no terminal onde está aberto o servidor:
+
+```
+$ ./server
+oi          
+teste
+batata
+the quick brown fox jumps over the lazy dog
+```
+
+Mesmo o cliente tendo terminado, o servidor continua ativo, esperando, outras
+conexões. Faremos isso, abrindo outra sessão do cliente:
+
+```
+$ ./client localhost
+segunda sessão
+segunda sessão
+mais linhas
+mais linhas
+ainda mais linhas
+ainda mais linhas
+```
+
+E no servidor, o relato completo de todas as linhas já recebidas:
+
+```
+$ ./server
+oi          
+teste
+batata
+the quick brown fox jumps over the lazy dog
+segunda sessão
+mais linhas
+ainda mais linhas
+```
+
+Em seguida, terminamos o servidor usando CTRL-C.
