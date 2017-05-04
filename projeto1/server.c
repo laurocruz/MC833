@@ -56,18 +56,25 @@ int main(int argc, char * argv[]) {
             exit(errno);
         }
 
-        if (recv(new_s, buf, MAX_LINE, 0) == -1) {
-	  perror("ERROR: unable to receive data");
-	  exit(errno);
-	}
-
-        printf("%s", buf);
-
-        //sprintf(buf, "TESTE_ser\n"); 
-        if (send(new_s, buf, MAX_LINE, 0) == -1)
+	while (1)
 	  {
-	    perror("ERROR: unable to send data");
-	    exit(errno);
+	    int has_data;
+
+	    if ((has_data = recv(new_s, buf, MAX_LINE, 0)) == -1) {
+	      perror("ERROR: unable to receive data");
+	      exit(errno);
+	    }
+
+	    if (!has_data)
+	      break;
+
+	    printf("%s", buf);
+
+	    if (send(new_s, buf, MAX_LINE, 0) == -1)
+	      {
+		perror("ERROR: unable to send data");
+		exit(errno);
+	      }
 	  }
 
 	if (close (new_s) == -1)
