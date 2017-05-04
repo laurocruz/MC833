@@ -35,7 +35,11 @@ int main(int argc, char * argv[]) {
     }
 
     /* Associar socket ao descritor */
-    bind (s, (struct sockaddr *)&socket_address, sizeof(socket_address));
+    if (bind (s, (struct sockaddr *)&socket_address, sizeof(socket_address)))
+      {
+	perror("ERROR: Unable to bind socket");
+	exit(errno);
+      }
 
     /* Criar escuta do socket para aceitar conexÃµes */
     if (listen(s, MAX_PENDING)) {
