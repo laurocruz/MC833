@@ -39,7 +39,6 @@ int main(int argc, char * argv[]) {
     }
 
     /* criação de socket ativo*/
-
     if ((s = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
         perror("ERROR: Unable to create socket");
         exit(errno);
@@ -62,32 +61,30 @@ int main(int argc, char * argv[]) {
     /* ler e enviar linhas de texto, receber eco */
     memset(&buf, '\0', MAX_LINE);
 
-    while (fgets(buf, MAX_LINE, stdin) != NULL)
-      {
-	/* Envia texto */
-	if (send(s, buf, MAX_LINE, 0) == -1)
-	  {
-	    perror("ERROR: unable to send data");
-	    exit(errno);
-	  }
+    while (fgets(buf, MAX_LINE, stdin) != NULL) {
+        /* Envia texto */
+        if (send(s, buf, MAX_LINE, 0) == -1) {
+            perror("ERROR: unable to send data");
+            exit(errno);
+        }
 
-	/* Recebe eco */
+        /* Recebe eco */
 
-	if (recv(s, buf, MAX_LINE, 0) == -1 )  {
-	  perror("ERROR: unable to receive data");
-	  exit(errno);
-	}
+        if (recv(s, buf, MAX_LINE, 0) == -1 )  {
+            perror("ERROR: unable to receive data");
+            exit(errno);
+        }
 
-	printf("%s", buf);
+        printf("%s", buf);
 
-	memset(&buf, '\0', MAX_LINE);
-      }
+        memset(&buf, '\0', MAX_LINE);
+    }
 
-    if (close(s) == -1)
-      {
-	perror("ERROR: unable to close socket");
-	exit(errno);
-      }
+    /* Fecha o socket do cliente */
+    if (close(s) == -1) {
+        perror("ERROR: unable to close socket");
+        exit(errno);
+    }
 
     return 0;
 }

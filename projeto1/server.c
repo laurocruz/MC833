@@ -35,11 +35,10 @@ int main(int argc, char * argv[]) {
     }
 
     /* Associar socket ao descritor */
-    if (bind (s, (struct sockaddr *)&socket_address, sizeof(socket_address)))
-      {
-	perror("ERROR: Unable to bind socket");
-	exit(errno);
-      }
+    if (bind (s, (struct sockaddr *)&socket_address, sizeof(socket_address))) {
+        perror("ERROR: Unable to bind socket");
+        exit(errno);
+    }
 
     /* Criar escuta do socket para aceitar conexões */
     if (listen(s, MAX_PENDING)) {
@@ -56,39 +55,35 @@ int main(int argc, char * argv[]) {
             exit(errno);
         }
 
-	while (1)
-	  {
-	    int has_data;
+        while (1) {
+            int has_data;
 
-	    if ((has_data = recv(new_s, buf, MAX_LINE, 0)) == -1) {
-	      perror("ERROR: unable to receive data");
-	      exit(errno);
-	    }
+            if ((has_data = recv(new_s, buf, MAX_LINE, 0)) == -1) {
+                perror("ERROR: unable to receive data");
+                exit(errno);
+            }
 
-	    if (!has_data)
-	      break;
+            if (!has_data)
+                break;
 
-	    printf("%s", buf);
+            printf("%s", buf);
 
-	    if (send(new_s, buf, MAX_LINE, 0) == -1)
-	      {
-		perror("ERROR: unable to send data");
-		exit(errno);
-	      }
-	  }
+            if (send(new_s, buf, MAX_LINE, 0) == -1) {
+                perror("ERROR: unable to send data");
+                exit(errno);
+            }
+        }
 
-	if (close (new_s) == -1)
-	  {
-	    perror("ERROR: unable to close client socket");
-	    exit(errno);
-	  }
+        if (close (new_s) == -1) {
+            perror("ERROR: unable to close client socket");
+            exit(errno);
+        }
     }
 
-    if (close(s) == -1)
-      {
-	perror("ERROR: unable to close socket");
-	exit(errno);
-      }
+    if (close(s) == -1) {
+        perror("ERROR: unable to close socket");
+        exit(errno);
+    }
 
     return 0;
 }
