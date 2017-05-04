@@ -56,16 +56,32 @@ int main(int argc, char * argv[]) {
             exit(errno);
         }
 
-        recv(new_s, buf, MAX_LINE, 0);
+        if (recv(new_s, buf, MAX_LINE, 0) == -1) {
+	  perror("ERROR: unable to receive data");
+	  exit(errno);
+	}
+
         printf("%s", buf);
 
         //sprintf(buf, "TESTE_ser\n"); 
-        send(new_s, buf, MAX_LINE, 0);
+        if (send(new_s, buf, MAX_LINE, 0) == -1)
+	  {
+	    perror("ERROR: unable to send data");
+	    exit(errno);
+	  }
 
-        close (new_s);
+	if (close (new_s) == -1)
+	  {
+	    perror("ERROR: unable to close client socket");
+	    exit(errno);
+	  }
     }
 
-    close(s);
+    if (close(s) == -1)
+      {
+	perror("ERROR: unable to close socket");
+	exit(errno);
+      }
 
     return 0;
 }
