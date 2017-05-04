@@ -19,7 +19,7 @@ int main(int argc, char * argv[]) {
     int port;
 
 
-    /* verificaÃ§Ã£o de argumentos */
+    /* verificação de argumentos */
     if (argc != 2 && argc != 3)  {
         printf("ERROR: Wrong number of arguments\n");
         printf("Usage: %s hostname [PORT]\n", argv[0]);
@@ -30,7 +30,7 @@ int main(int argc, char * argv[]) {
 
     host = argv[1];
 
-    /* traduÃ§Ã£o de nome para endereÃ§o IP */
+    /* tradução de nome para endereço IP */
     host_address = gethostbyname(host);
 
     if (!host_address) {
@@ -38,14 +38,14 @@ int main(int argc, char * argv[]) {
         exit(errno);
     }
 
-    /* criaÃ§Ã£o de socket ativo*/
+    /* criação de socket ativo*/
 
     if ((s = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
         perror("ERROR: Unable to create socket");
         exit(errno);
     }
 
-    /* criaÃ§Ã£o da estrutura de dados de endereÃ§o */
+    /* criação da estrutura de dados de endereço */
     bzero((char *)&socket_address, sizeof(socket_address));
 
     socket_address.sin_family = AF_INET;
@@ -53,7 +53,7 @@ int main(int argc, char * argv[]) {
     socket_address.sin_port = htons(port);
 
 
-    /* estabelecimento da conexÃ£o */
+    /* estabelecimento da conexão */
     if (connect(s, (struct sockaddr *) &socket_address, sizeof(socket_address)) == -1) {
         perror("ERROR: Unable to connect to server");
         exit(errno);
