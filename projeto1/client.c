@@ -60,18 +60,34 @@ int main(int argc, char * argv[]) {
     }
 
     /* ler e enviar linhas de texto, receber eco */
-
-    /* Envia texto */
     memset(&buf, '\0', MAX_LINE);
-    fgets(buf, MAX_LINE, stdin);
-    //sprintf(buf, "TESTE_%d", i);
-    send(s, buf, MAX_LINE, 0);
 
-    /* Recebe eco */
-    recv(s, buf, MAX_LINE, 0);
-    printf("%s", buf);
+    while (fgets(buf, MAX_LINE, stdin) != NULL)
+      {
+	/* Envia texto */
+	if (send(s, buf, MAX_LINE, 0) == -1)
+	  {
+	    perror("ERROR: unable to send data");
+	    exit(errno);
+	  }
 
-    close(s);
+	/* Recebe eco */
+
+	if (recv(s, buf, MAX_LINE, 0) == -1 )  {
+	  perror("ERROR: unable to receive data");
+	  exit(errno);
+	}
+
+	printf("%s", buf);
+
+	memset(&buf, '\0', MAX_LINE);
+      }
+
+    if (close(s) == -1)
+      {
+	perror("ERROR: unable to close socket");
+	exit(errno);
+      }
 
     return 0;
 }
