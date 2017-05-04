@@ -30,7 +30,7 @@ int main(int argc, char * argv[]) {
 
     /* criaÃ§Ã£o de socket passivo */
     if ((s = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
-        perror("ERROR: Unable to create socket\n");
+        perror("ERROR: Unable to create socket");
         exit(errno);
     }
 
@@ -39,7 +39,7 @@ int main(int argc, char * argv[]) {
 
     /* Criar escuta do socket para aceitar conexÃµes */
     if (listen(s, MAX_PENDING)) {
-        perror("ERROR: Unable to invoke listen method \n");
+        perror("ERROR: Unable to invoke listen method");
         exit(errno);
     }
 
@@ -48,12 +48,12 @@ int main(int argc, char * argv[]) {
 
         /* aguardar/aceita conexÃ£o, receber e imprimir texto na tela, enviar eco */
         if ((new_s = accept(s, (struct sockaddr *)NULL, NULL)) == -1) {
-            perror("ERROR: Unable to get client socket\n");
+            perror("ERROR: Unable to get client socket");
             exit(errno);
         }
 
         recv(new_s, buf, MAX_LINE, 0);
-        printf("%s\n", buf);
+        printf("%s", buf);
 
         //sprintf(buf, "TESTE_ser\n"); 
         send(new_s, buf, MAX_LINE, 0);

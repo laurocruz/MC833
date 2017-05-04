@@ -21,7 +21,7 @@ int main(int argc, char * argv[]) {
 
     /* verificaÃ§Ã£o de argumentos */
     if (argc != 2 && argc != 3)  {
-        perror("ERROR: Wrong number of arguments\n");
+        printf("ERROR: Wrong number of arguments\n");
         printf("Usage: %s hostname [PORT]\n", argv[0]);
         exit(errno);
     } else if (argc == 3) {
@@ -41,7 +41,7 @@ int main(int argc, char * argv[]) {
     /* criaÃ§Ã£o de socket ativo*/
 
     if ((s = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
-        perror("ERROR: Unable to create socket\n");
+        perror("ERROR: Unable to create socket");
         exit(errno);
     }
 
@@ -55,7 +55,7 @@ int main(int argc, char * argv[]) {
 
     /* estabelecimento da conexÃ£o */
     if (connect(s, (struct sockaddr *) &socket_address, sizeof(socket_address)) == -1) {
-        perror("ERROR: Unable to connect to server\n");
+        perror("ERROR: Unable to connect to server");
         exit(errno);
     }
 
@@ -69,7 +69,7 @@ int main(int argc, char * argv[]) {
 
     /* Recebe eco */
     recv(s, buf, MAX_LINE, 0);
-    printf("%s\n", buf);
+    printf("%s", buf);
 
     close(s);
 
