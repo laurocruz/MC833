@@ -34,7 +34,7 @@ int main(int argc, char * argv[]) {
     host_address = gethostbyname(host);
 
     if (!host_address) {
-        perror("ERROR: Unable to resolve hostname\n");
+        printf("ERROR: Unable to resolve hostname\n");
         exit(errno);
     }
 
