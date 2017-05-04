@@ -46,6 +46,8 @@ Ao se tentar conectar a uma porta onde não há um servidor escutando.
 `bzero`: limpa uma string, escrevendo caracteres nulos (`\0`) até o tamanho
 especificado.
 
+`htonl`, `htons`: converte ordem de bytes, de ordem de host pra ordem de rede.
+
 `gethostbyname`: retorna um ponteiro para um `struct hostent`, que contém
 informações sobre o host resolvido.
 
