@@ -61,12 +61,11 @@ int main(int argc, char * argv[]) {
         perror("ERROR: Unable to connect to server");
         exit(errno);
     }
-    printf("UAI\n");
 
     socklen_t localsock_len = sizeof(local_address);
     if (getsockname(s, (struct sockaddr *) &local_address, &localsock_len) == 0) {
         printf("Local IP: %s\n", inet_ntoa(local_address.sin_addr));
-        printf("    Port: $d\n", ntohs(local_address.sin_port));
+        printf("    Port: %d\n", ntohs(local_address.sin_port));
     }
 
     /* ler e enviar linhas de texto, receber eco */
