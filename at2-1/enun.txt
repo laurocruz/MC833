@@ -1,0 +1,12 @@
+Atividade 2.1
+*Em duplas*
+Entrega: 18/05
+Conteúdo da entrega: código fonte com a implementação especificada e relatório descrevendo as diferenças implementadas em relação ao código do projeto 1, as funções utilizadas e mostrando os testes realizados para validar a implementação.
+Forma de entrega: arquivo comprimido (tar.gz, zip.) via classroom.google.com
+
+Altere os códigos do projeto 1 para:
+1. Implementar suporte no servidor a multiplos clientes simultaneos usando fork().
+2. A janela do servidor deve exibir informações sobre o socket remoto (IP e porta remotos) assim que este se conecta.
+3. A janela do servidor deve exibir o IP do cliente que enviou a mensagem, além da mensagem enviada.
+4. O cliente deve exibir informações sobre seu socket local (IP e porta locais) quando conecta ao servidor.
+
