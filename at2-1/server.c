@@ -5,17 +5,22 @@
 #include <unistd.h>
 #include <netdb.h>
 #include <errno.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 #define LISTEN_PORT 12345
 #define MAX_PENDING 5 
 #define MAX_LINE 256
 
+void handle_connection(int s);
+
 int main(int argc, char * argv[]) {
     struct sockaddr_in socket_address;
-    char buf[MAX_LINE];
     unsigned int len;
     int s, new_s;
     int l_port;
+    int pid;
 
     if (argc == 2)
         l_port = atoi(argv[1]);
@@ -47,37 +52,19 @@ int main(int argc, char * argv[]) {
     }
 
     while (1) {
-        memset(buf, '\0', MAX_LINE);
-
         /* aguardar/aceita conexão, receber e imprimir texto na tela, enviar eco */
         if ((new_s = accept(s, (struct sockaddr *)NULL, NULL)) == -1) {
             perror("ERROR: Unable to get client socket");
             exit(errno);
         }
 
-        while (1) {
-            int has_data;
-
-            if ((has_data = recv(new_s, buf, MAX_LINE, 0)) == -1) {
-                perror("ERROR: unable to receive data");
-                exit(errno);
-            }
-
-            if (!has_data)
-                break;
-
-            printf("%s", buf);
-
-            if (send(new_s, buf, MAX_LINE, 0) == -1) {
-                perror("ERROR: unable to send data");
-                exit(errno);
-            }
-        }
-
-        if (close (new_s) == -1) {
-            perror("ERROR: unable to close client socket");
+        if ((pid = fork()) < 0) {
+            perror("fork");
             exit(errno);
-        }
+        } 
+
+        if (pid == 0) 
+            handle_connection(new_s);
     }
 
     if (close(s) == -1) {
@@ -86,5 +73,48 @@ int main(int argc, char * argv[]) {
     }
 
     return 0;
+}
+
+void handle_connection(int s) {
+    char buf[MAX_LINE];
+    char * ip;
+    struct sockaddr_in client_address;
+    memset(buf, '\0', MAX_LINE);
+
+    socklen_t client_socklen = sizeof(client_address);
+    if (getpeername(s, (struct sockaddr *) &client_address, &client_socklen) == 0) {
+        printf("CLIENT CONNECTED\n");
+        ip = inet_ntoa(client_address.sin_addr);
+        printf("  IP: %s\n", ip);
+        printf("PORT: %d\n\n", ntohs(client_address.sin_port));
+    } else {
+        perror("ERROR: Could not resolve remote port and ip values\n");
+        exit(errno);
+    }
+
+    while (1) {
+        int has_data;
+
+        if ((has_data = recv(s, buf, MAX_LINE, 0)) == -1) {
+            perror("ERROR: unable to receive data");
+            exit(errno);
+        }
+
+        if (!has_data)
+            break;
+
+        printf("From %s:\n%s\n", ip, buf);
+
+        if (send(s, buf, MAX_LINE, 0) == -1) {
+            perror("ERROR: unable to send data");
+            exit(errno);
+        }
+    }
+
+    if (close (s) == -1) {
+        perror("ERROR: unable to close client socket");
+        exit(errno);
+    }
+
 }
 

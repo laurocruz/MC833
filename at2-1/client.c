@@ -66,6 +66,9 @@ int main(int argc, char * argv[]) {
     if (getsockname(s, (struct sockaddr *) &local_address, &localsock_len) == 0) {
         printf("Local IP: %s\n", inet_ntoa(local_address.sin_addr));
         printf("    Port: %d\n", ntohs(local_address.sin_port));
+    } else {
+        perror("ERROR: Could not resolve local port and ip values\n");
+        exit(errno);
     }
 
     /* ler e enviar linhas de texto, receber eco */
