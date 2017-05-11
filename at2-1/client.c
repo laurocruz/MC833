@@ -62,6 +62,7 @@ int main(int argc, char * argv[]) {
         exit(errno);
     }
 
+    /* Obtem o IP e porta locais */
     socklen_t localsock_len = sizeof(local_address);
     if (getsockname(s, (struct sockaddr *) &local_address, &localsock_len) == 0) {
         printf("Local IP: %s\n", inet_ntoa(local_address.sin_addr));

@@ -58,15 +58,18 @@ int main(int argc, char * argv[]) {
             exit(errno);
         }
 
+        /* Cria um novo processo */
         if ((pid = fork()) < 0) {
             perror("fork");
             exit(errno);
         } 
 
+        /* Chama a função que lida com a nova conexão */
         if (pid == 0) 
             handle_connection(new_s);
     }
 
+    /* Fecha o socket do servidor */
     if (close(s) == -1) {
         perror("ERROR: unable to close socket");
         exit(errno);
@@ -81,6 +84,7 @@ void handle_connection(int s) {
     struct sockaddr_in client_address;
     memset(buf, '\0', MAX_LINE);
 
+    /* Obtem o IP e Porta do cliente */
     socklen_t client_socklen = sizeof(client_address);
     if (getpeername(s, (struct sockaddr *) &client_address, &client_socklen) == 0) {
         printf("CLIENT CONNECTED\n");
@@ -95,6 +99,7 @@ void handle_connection(int s) {
     while (1) {
         int has_data;
 
+        /* Recebe dado do cliente */
         if ((has_data = recv(s, buf, MAX_LINE, 0)) == -1) {
             perror("ERROR: unable to receive data");
             exit(errno);
@@ -103,14 +108,17 @@ void handle_connection(int s) {
         if (!has_data)
             break;
 
+        /* Mostra o dado enviado */
         printf("From %s:\n%s\n", ip, buf);
 
+        /* Envia eco */
         if (send(s, buf, MAX_LINE, 0) == -1) {
             perror("ERROR: unable to send data");
             exit(errno);
         }
     }
 
+    /* Fecha socket da conexão */
     if (close (s) == -1) {
         perror("ERROR: unable to close client socket");
         exit(errno);
