@@ -60,7 +60,7 @@ int main(int argc, char * argv[]) {
 
         /* Cria um novo processo */
         if ((pid = fork()) < 0) {
-            perror("fork");
+            perror("ERROR: fork");
             exit(errno);
         } 
 
