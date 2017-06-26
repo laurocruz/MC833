@@ -65,64 +65,64 @@ int main(int argc, char * argv[]) {
 
     while (1) {
 
-	FD_ZERO(&sockets);
-	FD_SET(s, &sockets);
+        FD_ZERO(&sockets);
+        FD_SET(s, &sockets);
 
-	max_fd = s;
-	 
-	for (i = 0; i < FD_SETSIZE-1; i++) {
-	    if (clients[i] > 0) {
-		FD_SET(clients[i], &sockets);
-		if (clients[i] > max_fd)
-		    max_fd = clients[i];
-	    }
-	}
+        max_fd = s;
 
-	if (select(max_fd + 1, &sockets, NULL, NULL, NULL) < 0) {
-	    if (errno ==  EINTR) {
-		continue;
-	    }
-	    perror("ERROR: select() failed");
-	    exit(errno);
-	}
+        for (i = 0; i < FD_SETSIZE-1; i++) {
+            if (clients[i] > 0) {
+                FD_SET(clients[i], &sockets);
+                if (clients[i] > max_fd)
+                    max_fd = clients[i];
+            }
+        }
+
+        if (select(max_fd + 1, &sockets, NULL, NULL, NULL) < 0) {
+            if (errno ==  EINTR) {
+                continue;
+            }
+            perror("ERROR: select() failed");
+            exit(errno);
+        }
 
 
-	// caso haja nova conexão esperando
-	if (FD_ISSET(s, &sockets)) {
-	    
-	    /* aguardar/aceita conexão, receber e imprimir texto na tela, enviar eco */
-	    if ((new_s = accept(s, (struct sockaddr *)NULL, NULL)) == -1) {
-		perror("ERROR: Unable to get client socket");
-		exit(errno);
-	    }
+        // caso haja nova conexão esperando
+        if (FD_ISSET(s, &sockets)) {
 
-	    for (i = 0; i < FD_SETSIZE-1; i++){
-		if (clients[i] == 0) {
-		    clients[i] = new_s;
-		    break;
-		}
-	    }
+            /* aguardar/aceita conexão, receber e imprimir texto na tela, enviar eco */
+            if ((new_s = accept(s, (struct sockaddr *)NULL, NULL)) == -1) {
+                perror("ERROR: Unable to get client socket");
+                exit(errno);
+            }
 
-	    if (i == FD_SETSIZE-1) {
-		printf("ERROR: maximum clients reached, closing new connection\n");
-		close_connection(new_s);
-	    }
+            for (i = 0; i < FD_SETSIZE-1; i++){
+                if (clients[i] == 0) {
+                    clients[i] = new_s;
+                    break;
+                }
+            }
 
-	    /* Chama a função que lida com a nova conexão */
-	    handle_new_connection(new_s);
+            if (i == FD_SETSIZE-1) {
+                printf("ERROR: maximum clients reached, closing new connection\n");
+                close_connection(new_s);
+            }
 
-	} 
+            /* Chama a função que lida com a nova conexão */
+            handle_new_connection(new_s);
 
-	// procurar sockets prontos pra leitura
-	for (i = 0; i < FD_SETSIZE-1; i++) {
-	    if (clients[i] > 0 && FD_ISSET(clients[i], &sockets)) {
-		// lidar com dados, e remover socket se necessário
-		if (handle_data(clients[i]) == 0) {
-		    clients[i] = 0;
-		}
-		    
-	    }
-	}
+        } 
+
+        // procurar sockets prontos pra leitura
+        for (i = 0; i < FD_SETSIZE-1; i++) {
+            if (clients[i] > 0 && FD_ISSET(clients[i], &sockets)) {
+                // lidar com dados, e remover socket se necessário
+                if (handle_data(clients[i]) == 0) {
+                    clients[i] = 0;
+                }
+
+            }
+        }
     }
 
     /* Fecha o socket do servidor */
@@ -167,13 +167,13 @@ int handle_data(int s) {
 
     /* Recebe dado do cliente */
     if ((has_data = recv(s, buf, MAX_LINE, 0)) == -1) {
-	perror("ERROR: unable to receive data");
-	exit(errno);
+        perror("ERROR: unable to receive data");
+        exit(errno);
     }
 
     if (!has_data) {
-	close_connection(s);
-	return 0;
+        close_connection(s);
+        return 0;
     }
 
     if (getpeername(s, (struct sockaddr *) &client_address, &client_socklen) == 0) {
@@ -188,8 +188,8 @@ int handle_data(int s) {
 
     /* Envia eco */
     if (send(s, buf, MAX_LINE, 0) == -1) {
-	perror("ERROR: unable to send data");
-	exit(errno);
+        perror("ERROR: unable to send data");
+        exit(errno);
     }
 
     return has_data;
