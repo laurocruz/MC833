@@ -11,6 +11,6 @@ typedef struct car {
     Pos pos;
 } Car;
 
-int carro(Car car, char * hostname, int sec_port, int entcon_port, int sec_tcp, int ent_tcp, int con_tcp);
+int carro(Car * car, char * hostname, int sec_port, int entcon_port, int sec_tcp, int ent_tcp, int con_tcp);
 
 #endif /* _CARRO_H */

@@ -17,9 +17,9 @@ static inline int set_socket(struct sockaddr_in * socket_address, int * s, int p
     /* criação da estrutura de dados de endereço */
     bzero((char *)socket_address, sizeof(*socket_address));
 
-    *socket_address.sin_family = AF_INET;
-    *socket_address.sin_addr.s_addr = htonl(INADDR_ANY);
-    *socket_address.sin_port = htons(port);
+    socket_address->sin_family = AF_INET;
+    socket_address->sin_addr.s_addr = htonl(INADDR_ANY);
+    socket_address->sin_port = htons(port);
 
     /* criação de socket passivo */
     if ((*s = socket(AF_INET, type, 0)) == -1) {
@@ -64,11 +64,11 @@ static inline int tcp_handle_data(int s, void (*app)(char *, char*)) {
     struct sockaddr_in client_address;
     socklen_t client_socklen = sizeof(client_address);
     char * ip;
-    char buf[MAX_LINE] = {0};
-    int has_data;
+    char bufin[MAX_LINE] = {0}, bufout[MAX_LINE] = {0};
+    int has_data, cport;
 
     /* Recebe dado do cliente */
-    if ((has_data = recv(s, buf, MAX_LINE, 0)) == -1) {
+    if ((has_data = recv(s, bufin, MAX_LINE, 0)) == -1) {
         perror("ERROR: unable to receive data");
         exit(errno);
     }
@@ -80,16 +80,19 @@ static inline int tcp_handle_data(int s, void (*app)(char *, char*)) {
 
     if (getpeername(s, (struct sockaddr *) &client_address, &client_socklen) == 0) {
         ip = inet_ntoa(client_address.sin_addr);
+        cport = ntohs(client_address.sin_port);
     } else {
         perror("ERROR: Could not resolve remote ip value\n");
         exit(errno);
     }
 
     /* Mostra o dado enviado */
-    printf("From %s:\n%s\n", ip, buf);
+    printf("TCP From %s:%d\n%s\n\n", ip, cport, bufin);
+
+    app(bufout, bufin);
 
     /* Envia eco */
-    if (send(s, buf, MAX_LINE, 0) == -1) {
+    if (send(s, bufout, MAX_LINE, 0) == -1) {
         perror("ERROR: unable to send data");
         exit(errno);
     }
@@ -101,8 +104,7 @@ static inline int tcp_handle_data(int s, void (*app)(char *, char*)) {
 static inline int tcp_handler(int port, void (*app)(char *, char*)) {
     struct sockaddr_in socket;
     int s, new_s;
-    unsigned int len;
-    int pid;
+    int i;
     int clients[FD_SETSIZE-1] = {0};
     int max_fd;
     fd_set sockets;
@@ -203,7 +205,8 @@ static inline int udp_handler(int port, void (*app)(char *, char *)) {
         if (!has_data)
             printf("ERROR: Unable to receive data\n");
         else {
-            app(bufout, bufin)
+            printf("UDP From %s:%d\n%s\n\n", inet_ntoa(remote.sin_addr), ntohs(remote.sin_port), bufin);
+            app(bufout, bufin);
             sendto(s, bufout, has_data, 0, (struct sockaddr *) &remote, len);
         }
     }
@@ -216,7 +219,7 @@ static inline int udp_handler(int port, void (*app)(char *, char *)) {
     return 0;
 }
 
-int server(int sec_udp_p, int sec_tcp_p, int ec_tcp_p, int ec_udp_p, void (*sec)(char *, char *), void (*ent_con)(char *, char *)) {
+int server(int sec_tcp_p, int sec_udp_p, int ec_tcp_p, int ec_udp_p, void (*sec)(char *, char *), void (*ent_con)(char *, char *)) {
     int tid;
 
     #pragma omp parallel private(tid) shared(sec_udp_p, sec_tcp_p, ec_tcp_p, ec_udp_p, sec, ent_con) num_threads(4)

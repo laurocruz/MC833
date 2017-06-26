@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include <string.h>
 #include <strings.h>
 #include <unistd.h>
@@ -31,20 +32,34 @@ static inline int get_socket(struct sockaddr_in * socket_address, int * s, char 
     /* criação da estrutura de dados de endereço */
     bzero((char *)socket_address, sizeof(*socket_address));
 
-    *socket_address.sin_family = AF_INET;
-    *socket_address.sin_addr = *(struct in_addr *)host_address->h_addr_list[0];
-    *socket_address.sin_port = htons(port);
+    socket_address->sin_family = AF_INET;
+    socket_address->sin_addr = *(struct in_addr *)host_address->h_addr_list[0];
+    socket_address->sin_port = htons(port);
 
 
     if (type == SOCK_STREAM) {
         /* estabelecimento da conexão */
-        if (connect(s, (struct sockaddr *) socket_address, sizeof(*socket_address)) == -1) {
+        if (connect(*s, (struct sockaddr *) socket_address, sizeof(*socket_address)) == -1) {
             perror("ERROR: Unable to connect to server");
             exit(errno);
         }
     }
 
     return 0;
+}
+
+static inline int num_size(int n) {
+    int l;
+
+    if (n > 0) {
+        l = (int) log10(n);
+        return l+1;
+    } else if (n < 0) {
+        l = (int) log10(-n);
+        return l+2;
+    } else {
+        return 1;
+    }
 }
 
 static inline void make_msg(char * buf, char app, Car * car) {
@@ -55,57 +70,44 @@ static inline void make_msg(char * buf, char app, Car * car) {
         return;
     }
 
-    buf[1] = ' '
+    buf[1] = ' ';
 
-    int l = (int) log10l(car->ts);
-    l++;
+    int l;
+
+    l = (int) log10l(car->ts); l++;
     sprintf(buf, "%lu", car->ts);
     buf[l] = ' '; buf += l + 1;
 
-    l = (int) log10(car->speed);
-    l++;
+    l = num_size(car->speed);
     sprintf(buf, "%d", car->speed);
     buf[l] = ' '; buf += l + 1;
 
     sprintf(buf, "%d", car->dir);
     buf[1] = ' '; buf += 2;
 
-    l = (int) log10(car->size);
-    l++;
+    l = num_size(car->size);
     sprintf(buf, "%d", car->size);
     buf[l] = ' '; buf += l + 1;
 
-    if (car->pos.x < 0) {
-        l = (int) log10(-car->pos.x);
-        l += 2;
-    } else {
-        l = (int) log10(car->pos.x);
-        l++;
-    }
+    l = num_size(car->pos.x);
     sprintf(buf, "%d", car->pos.x);
     buf[l] = ' '; buf += l + 1;
 
-    if (car->pos.y < 0) {
-        l = (int) log10(-car->pos.y);
-        l += 2;
-    } else {
-        l = (int) log10(car->pos.y);
-        l++;
-    }
+    l = num_size(car->pos.y);
     sprintf(buf, "%d", car->pos.y);
     buf[l] = ' '; buf += l + 1;
 }
 
-int client_tcp(char * hostname, int port, Car * car, char app, int (*app_fun)(char *, Car *)) {
+int client_tcp(char * hostname, int port, Car * car, char app, void (*app_fun)(char *, Car *)) {
     struct sockaddr_in socket_address;
     //struct sockaddr_in local_address;
     char buf[MAX_LINE];
     int s;
 
-    int get_socket(&socket_address, &s, hostname, port, SOCK_STREAM);
+    get_socket(&socket_address, &s, hostname, port, SOCK_STREAM);
 
     /* ler e enviar linhas de texto, receber eco */
-    memset(&buf, '\0', MAX_LINE);
+    memset(buf, '\0', MAX_LINE);
 
     while (1) {
         make_msg(buf, app, car);
@@ -129,7 +131,7 @@ int client_tcp(char * hostname, int port, Car * car, char app, int (*app_fun)(ch
 
         sleep(2);
 
-        memset(&buf, '\0', MAX_LINE);
+        memset(buf, '\0', MAX_LINE);
     }
 
     /* Fecha o socket do cliente */
@@ -141,16 +143,16 @@ int client_tcp(char * hostname, int port, Car * car, char app, int (*app_fun)(ch
     return 0;
 }
 
-int client_udp(char * hostname, int port, Car * car, char app, int (*app_fun)(char *, Car *)) {
+int client_udp(char * hostname, int port, Car * car, char app, void (*app_fun)(char *, Car *)) {
     struct sockaddr_in socket_address;
     //struct sockaddr_in local_address;
     char buf[MAX_LINE];
     int s;
 
-    int get_socket(&socket_address, &s, hostname, port, SOCK_DGRAM);
+    get_socket(&socket_address, &s, hostname, port, SOCK_DGRAM);
 
     /* ler e enviar linhas de texto, receber eco */
-    memset(&buf, '\0', MAX_LINE);
+    memset(buf, '\0', MAX_LINE);
 
     while (1) {
         make_msg(buf, app, car);
@@ -175,7 +177,7 @@ int client_udp(char * hostname, int port, Car * car, char app, int (*app_fun)(ch
 
         sleep(2);
 
-        memset(&buf, '\0', MAX_LINE);
+        memset(buf, '\0', MAX_LINE);
     }
 
     /* Fecha o socket do cliente */
