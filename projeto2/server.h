@@ -1,6 +1,8 @@
 #ifndef _SERVER_H
 #define _SERVER_H
 
+#include "carro.h"
+
 #define MAX_PENDING 5
 #define MAX_LINE 512
 

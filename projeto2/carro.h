@@ -6,6 +6,7 @@ typedef struct pos {
 } Pos;
 
 typedef struct car {
+    int id;
     long unsigned ts;
     int speed, dir, size;
     Pos pos;

@@ -69,10 +69,13 @@ static inline void make_msg(char * buf, char app, Car * car) {
         buf[1] = '\0';
         return;
     }
-
     buf[1] = ' ';
 
     int l;
+
+    l = num_size(car->id);
+    sprintf(buf, "%d", car->id);
+    buf[l] = ' '; buf += l + 1;
 
     l = (int) log10l(car->ts); l++;
     sprintf(buf, "%lu", car->ts);
@@ -98,7 +101,7 @@ static inline void make_msg(char * buf, char app, Car * car) {
     buf[l] = ' '; buf += l + 1;
 }
 
-int client_tcp(char * hostname, int port, Car * car, char app, void (*app_fun)(char *, Car *)) {
+int client_tcp(char * hostname, int port, Car * car, char app, int (*app_fun)(char *, Car *)) {
     struct sockaddr_in socket_address;
     //struct sockaddr_in local_address;
     char buf[MAX_LINE];
@@ -126,10 +129,9 @@ int client_tcp(char * hostname, int port, Car * car, char app, void (*app_fun)(c
 
         /******************************************/
         /**************** DO STUFF ****************/
-        app_fun(buf, car);
+        if (app_fun(buf, car) != 0)
+            break;
         /******************************************/
-
-        sleep(2);
 
         memset(buf, '\0', MAX_LINE);
     }
@@ -143,7 +145,7 @@ int client_tcp(char * hostname, int port, Car * car, char app, void (*app_fun)(c
     return 0;
 }
 
-int client_udp(char * hostname, int port, Car * car, char app, void (*app_fun)(char *, Car *)) {
+int client_udp(char * hostname, int port, Car * car, char app, int (*app_fun)(char *, Car *)) {
     struct sockaddr_in socket_address;
     //struct sockaddr_in local_address;
     char buf[MAX_LINE];
@@ -172,10 +174,9 @@ int client_udp(char * hostname, int port, Car * car, char app, void (*app_fun)(c
 
         /******************************************/
         /**************** DO STUFF ****************/
-        app_fun(buf, car);
+        if (app_fun(buf, car) != 0)
+            break;
         /******************************************/
-
-        sleep(2);
 
         memset(buf, '\0', MAX_LINE);
     }

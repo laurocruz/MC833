@@ -9,7 +9,7 @@
 
 #define MAX_LINE 512
 
-int client_udp(char * hostname, int port, Car * car, char app, void (*app_fun)(char *, Car *));
-int client_tcp(char * hostname, int port, Car * car, char app, void (*app_fun)(char *, Car *));
+int client_udp(char * hostname, int port, Car * car, char app, int (*app_fun)(char *, Car *));
+int client_tcp(char * hostname, int port, Car * car, char app, int (*app_fun)(char *, Car *));
 
 #endif /* _CLIENT_D */
