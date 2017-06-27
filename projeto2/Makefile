@@ -1,32 +1,18 @@
-CC := gcc
-CCFLAGS := -fopenmp -lm -g -pedantic -Wall
-LDFLAGS :=
-SERVER_OBJ := server.o demo_server.o
-CLIENT_OBJ := client.o carro.o demo_carro.o
-ARGS=$(filter-out $@,$(MAKECMDGOALS))
+CFLAGS = -g -pedantic -Wall -fopenmp
+LDLIBS= -lm -fopenmp
 
-all: demo_carro demo_server
+BIN= demo_carro demo_server
+CLIENTOBJ = client.o carro.o demo_carro.o
+SERVEROBJ = server.o demo_server.o
 
-demo_carro: $(CLIENT_OBJ)
-	$(CC) $(CCFLAGS) $(LDFLAGS) -o $@ $(CLIENT_OBJ)
+OBJ= $(CLIENTOBJ) $(SERVEROBJ)
 
-demo_server: $(SERVER_OBJ)
-	$(CC) $(CCFLAGS) $(LDFLAGS) -o $@ $(SERVER_OBJ)
+all: $(BIN)
 
-client.o: client.c
-	$(CC) $(CCFLAGS) $(LDFLAGS) -c $<
+demo_carro: $(CLIENTOBJ)
 
-carro.o: carro.c
-	$(CC) $(CCFLAGS) $(LDFLAGS) -c $<
+demo_server: $(SERVEROBJ)
 
-demo_carro.o: demo_carro.c
-	$(CC) $(CCFLAGS) $(LDFLAGS) -c $<
-
-server.o: server.c
-	$(CC) $(CCFLAGS) $(LDFLAGS) -c $<
-
-demo_server.o: demo_server.c
-	$(CC) $(CCFLAGS) $(LDFLAGS) -c $<
-
-clean: 
-	rm $(SERVER_OBJ) $(CLIENT_OBJ) demo_carro demo_server
+.PHONY = clean
+clean:
+	rm -f $(OBJ) $(BIN)
