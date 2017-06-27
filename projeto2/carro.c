@@ -39,7 +39,7 @@ int security_manager(char * msg, Car * car) {
         else car->speed = 0;
 
         printf("FREIE\n");
-    } else if (f == 2) {
+    } else if (f == 1) {
         car->speed += SPEED_UP;
         printf("ACELERE\n");
     } else {
@@ -48,6 +48,7 @@ int security_manager(char * msg, Car * car) {
 
         return 1;
     }
+    sleep(2);
 
     return 0;
 }
