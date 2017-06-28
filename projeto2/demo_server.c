@@ -29,6 +29,8 @@ void security_manager(char * bufout, char * bufin) {
     char * tok = strtok(bufin, " ");
     int pos = in_array(cars, n, atoi(tok));
 
+#pragma omp critical
+{
     if (pos == -1) pos = n++;
 
     cars[pos].id = atoi(tok);
@@ -42,7 +44,7 @@ void security_manager(char * bufout, char * bufin) {
         cars[pos].pos.x = atoi(strtok(NULL," "));
         cars[pos].pos.y = atoi(strtok(NULL," "));
     }
-
+}
     if (crashed[pos] == 1) {
         bufout[0] = '2'; bufout[1] = '\0';
         // Remove crashed car
@@ -103,6 +105,8 @@ void security_manager(char * bufout, char * bufin) {
 
                     // BATEU
                     if ((posi <= 0) && (posi + cars[pos].size >= 0) && (ii <= 0) && (ii + cars[i].size >= 0)) {
+                    #pragma omp critical
+                    {
                         cars[pos] = cars[n-1];
                         crashed[n-1] = 0;
 
@@ -110,6 +114,7 @@ void security_manager(char * bufout, char * bufin) {
                             crashed[i] = 1;
                         else crashed[pos] = 1;
                         n--;
+                    }
 
                         bufout[0] = '2'; bufout[1] = '\0';
                         return;
