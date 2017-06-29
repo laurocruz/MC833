@@ -80,6 +80,10 @@ um cliente, com o seguinte formato:
 * Velocidade máxima do carro
 * Distância inicial do carro em relação a origem.
 
+O arquivo results.out tem informações sobre o número de mensagens enviadas, e
+separando por cada tipo de mensagem, inclusive, mostrando se o carro acabou
+colidindo, e tendo que ser chamada a ambulância.
+
 ## Sistema anti-colisão
 
 Optamos por usar uma heurística simples e pessimista para alertar sobre colisões
