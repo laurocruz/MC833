@@ -164,6 +164,12 @@ void entcon_manager(char * bufout, char * bufin) {
 }
 
 int main(int argc, char ** argv) {
+
+    if (argc != 5) {
+        printf("Usage: %s safety_tcp_port safety_udp_port ent_conf_tcp_port ent_conf_udp_port\n", argv[0]);
+	exit(-1);
+    }
+
     server(atoi(argv[1]),atoi(argv[2]),atoi(argv[3]),atoi(argv[4]),security_manager,entcon_manager);
 
     return 0;
