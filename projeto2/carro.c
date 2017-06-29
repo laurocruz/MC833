@@ -34,6 +34,8 @@ int security_manager(char * msg, Car * car) {
     car->ts = ts;
 
     if (f == 0) {
+	if (car->speed < car->max_speed)
+	    car->speed++;
 	empty++;
     } else if (f == 1) {
         if (car->speed >= car->accel_down + 1)
@@ -68,7 +70,7 @@ int security_manager(char * msg, Car * car) {
 int entertainment_manager(char * msg, Car * car) {
     // Time until next request
     sleep(10);
-    return 0
+    return 0;
 }
 
 int confort_manager(char * msg, Car * car) {
@@ -94,7 +96,7 @@ int carro(Car * car, char * hostname, int sec_port, int entcon_port, int sec_tcp
                 client_tcp(hostname, sec_port, car, SECURITY, security_manager);
             else
                 client_udp(hostname, sec_port, car, SECURITY, security_manager);
-	    printf("%d %d %d %d %d\n", messages, empty, brake, throttle, ambulance);
+	    printf("messages %d empty %d brake %d throttle %d ambulance %d\n", messages, empty, brake, throttle, ambulance);
 	    exit(ambulance);
         } else if (tid == 1) {
             if (ent_tcp == 1)
