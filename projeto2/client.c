@@ -48,57 +48,11 @@ static inline int get_socket(struct sockaddr_in * socket_address, int * s, char 
     return 0;
 }
 
-static inline int num_size(int n) {
-    int l;
-
-    if (n > 0) {
-        l = (int) log10(n);
-        return l+1;
-    } else if (n < 0) {
-        l = (int) log10(-n);
-        return l+2;
-    } else {
-        return 1;
-    }
-}
-
 static inline void make_msg(char * buf, char app, Car * car) {
-    buf[0] = app;
-
-    if (app != SECURITY) {
-        buf[1] = '\0';
-        return;
-    }
-    buf[1] = ' ';
-
-    int l;
-
-    l = num_size(car->id);
-    sprintf(buf, "%d", car->id);
-    buf[l] = ' '; buf += l + 1;
-
-    l = (int) log10l(car->ts); l++;
-    sprintf(buf, "%lu", car->ts);
-    buf[l] = ' '; buf += l + 1;
-
-    l = num_size(car->speed);
-    sprintf(buf, "%d", car->speed);
-    buf[l] = ' '; buf += l + 1;
-
-    sprintf(buf, "%d", car->dir);
-    buf[1] = ' '; buf += 2;
-
-    l = num_size(car->size);
-    sprintf(buf, "%d", car->size);
-    buf[l] = ' '; buf += l + 1;
-
-    l = num_size(car->pos.x);
-    sprintf(buf, "%d", car->pos.x);
-    buf[l] = ' '; buf += l + 1;
-
-    l = num_size(car->pos.y);
-    sprintf(buf, "%d", car->pos.y);
-    buf[l] = ' '; buf += l + 1;
+    if (app != SECURITY)
+	sprintf(buf, "%c", app);
+    else
+	sprintf(buf, "%d %lu %d %d %d %d", car->id, car->ts, car->speed, car->dir, car->size, car->pos);
 }
 
 int client_tcp(char * hostname, int port, Car * car, char app, int (*app_fun)(char *, Car *)) {
