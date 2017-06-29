@@ -50,10 +50,10 @@ static inline void tcp_handle_new_connection(int s) {
     char * ip;
     /* Obtem o IP e Porta do cliente */
     if (getpeername(s, (struct sockaddr *) &client_address, &client_socklen) == 0) {
-        printf("CLIENT CONNECTED\n");
+      //        printf("CLIENT CONNECTED\n");
         ip = inet_ntoa(client_address.sin_addr);
-        printf("  IP: %s\n", ip);
-        printf("PORT: %d\n\n", ntohs(client_address.sin_port));
+	//	        printf("  IP: %s\n", ip);
+		//        printf("PORT: %d\n\n", ntohs(client_address.sin_port));
     } else {
         perror("ERROR: Could not resolve remote port and ip values\n");
         exit(errno);
@@ -87,7 +87,7 @@ static inline int tcp_handle_data(int s, void (*app)(char *, char*)) {
     }
 
     /* Mostra o dado enviado */
-    printf("TCP From %s:%d\n%s\n\n", ip, cport, bufin);
+    //    printf("TCP From %s:%d\n%s\n\n", ip, cport, bufin);
 
     app(bufout, bufin);
 

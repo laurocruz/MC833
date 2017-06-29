@@ -7,9 +7,6 @@
 #include "carro.h"
 #include "client.h"
 
-#define SPEED_DOWN 10
-#define SPEED_UP 1
-
 int security_manager(char * msg, Car * car) {
     // 0 - freie
     // 1 - acelere
@@ -18,60 +15,65 @@ int security_manager(char * msg, Car * car) {
     int ts = time(NULL);
     int d = car->dir;
 
-    // Cima
-    if (d == 0) {
-        car->pos.y += (ts - car->ts)*car->speed;
-    // Direita
-    } else if (d == 1) {
-        car->pos.x += (ts - car->ts)*car->speed;
-    // Baixo
-    } else if (d == 2) {
-        car->pos.y -= (ts - car->ts)*car->speed;
-    // Esquerda
-    } else {
-        car->pos.x -= (ts - car->ts)*car->speed;
+    switch (d) {
+    case UP:
+    case RIGHT:
+	car->pos += (ts - car->ts)*car->speed;
+	break;
+    case DOWN:
+    case LEFT:
+	car->pos -= (ts - car->ts)*car->speed;
+	break;
     }
+
     car->ts = ts;
 
     if (f == 0) {
         if (car->speed >= SPEED_DOWN)
             car->speed -= SPEED_DOWN;
         else car->speed = 0;
+	for (int i = 0; i < car->speed; i++)
+	    putchar('-');
 
-        printf("FREIE\n");
     } else if (f == 1) {
-        car->speed += SPEED_UP;
-        printf("ACELERE\n");
+	int speed_up = (rand() % SPEED_UP) + 1;
+	if (car->speed + speed_up < MAX_SPEED)
+	    car->speed += speed_up;
+	else
+	    car->speed = MAX_SPEED;
+	//      printf("ACELERE\n");
+	for (int i = 0; i < car->speed; i++)
+	    putchar('.');
     } else {
         car->speed = 0;
-        printf("AMBULANCIA\n");
-
+	putchar('#');
+	car->pos = LIMIT;
         return 1;
     }
-    sleep(2);
+    usleep(1500000);
 
-    return 0;
+    return car->pos < -LIMIT || car->pos > LIMIT-1;
 }
 
 int entertainment_manager(char * msg, Car * car) {
     // Time until next request
     sleep(2);
 
-    return 0;
+    return car->pos < -LIMIT || car->pos > LIMIT-1;
 }
 
 int confort_manager(char * msg, Car * car) {
     // Time until next request
     sleep(2);
 
-    return 0;
+    return car->pos < -LIMIT || car->pos > LIMIT-1;
 }
 
 int carro(Car * car, char * hostname, int sec_port, int entcon_port, int sec_tcp, int ent_tcp, int con_tcp) {
     int tid;
 
     // Create car ID
-    srand(time(NULL));
+
     car->id = rand();
 
     // Threads to deal with
