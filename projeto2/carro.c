@@ -8,9 +8,10 @@
 #include "client.h"
 
 int security_manager(char * msg, Car * car) {
-    // 0 - freie
-    // 1 - acelere
-    // 2 - ambulancia
+    // 0 - nenhum comando / manter
+    // 1 - freie
+    // 2 - acelere
+    // 3 - ambulancia
     int f = atoi(msg);
     int ts = time(NULL);
     int d = car->dir;
@@ -29,44 +30,66 @@ int security_manager(char * msg, Car * car) {
     car->ts = ts;
 
     if (f == 0) {
-        if (car->speed >= SPEED_DOWN)
-            car->speed -= SPEED_DOWN;
-        else car->speed = 0;
-	for (int i = 0; i < car->speed; i++)
-	    putchar('-');
-
-    } else if (f == 1) {
-	int speed_up = (rand() % SPEED_UP) + 1;
-	if (car->speed + speed_up < MAX_SPEED)
-	    car->speed += speed_up;
-	else
-	    car->speed = MAX_SPEED;
-	//      printf("ACELERE\n");
 	for (int i = 0; i < car->speed; i++)
 	    putchar('.');
+    } else if (f == 1) {
+        if (car->speed >= car->accel_down + 1)
+            car->speed -= car->accel_down;
+        else
+	    car->speed = 1;
+	for (int i = 0; i < car->speed; i++)
+	    putchar('-');
+    } else if (f == 2) {
+	if (car->speed + car->accel_up < car->max_speed)
+	    car->speed += car->accel_up;
+	else
+	    car->speed = car->max_speed;
+	//      printf("ACELERE\n");
+	for (int i = 0; i < car->speed; i++)
+	    putchar('+');
     } else {
         car->speed = 0;
 	putchar('#');
-	car->pos = LIMIT;
         return 1;
     }
-    usleep(1500000);
+    sleep(1);
 
-    return car->pos < -LIMIT || car->pos > LIMIT-1;
+    switch (d) {
+    case UP:
+    case RIGHT:
+	return car->pos - car->size >= 0;
+    case DOWN:
+    case LEFT:
+	return car->pos + car->size < 0;
+    }
 }
 
 int entertainment_manager(char * msg, Car * car) {
     // Time until next request
-    sleep(2);
+    sleep(10);
 
-    return car->pos < -LIMIT || car->pos > LIMIT-1;
+    switch (car->dir) {
+    case UP:
+    case RIGHT:
+	return car->pos - car->size >= 0;
+    case DOWN:
+    case LEFT:
+	return car->pos + car->size < 0;
+    }
 }
 
 int confort_manager(char * msg, Car * car) {
     // Time until next request
-    sleep(2);
+    sleep(10);
 
-    return car->pos < -LIMIT || car->pos > LIMIT-1;
+    switch (car->dir) {
+    case UP:
+    case RIGHT:
+	return car->pos - car->size >= 0;
+    case DOWN:
+    case LEFT:
+	return car->pos + car->size < 0;
+    }
 }
 
 int carro(Car * car, char * hostname, int sec_port, int entcon_port, int sec_tcp, int ent_tcp, int con_tcp) {

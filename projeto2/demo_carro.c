@@ -7,9 +7,10 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+
 int main(int argc, char ** argv) {
     if (argc != 7) {
-      printf("Usage: %s hostname safety_port entcon_port safety_use_tcp, entertainment_use_tcp comfort_use_tcp", argv[0]);
+	printf("Usage: %s hostname safety_port entcon_port safety_use_tcp entertainment_use_tcp comfort_use_tcp\n", argv[0]);
 	exit(-1);
     }
     setbuf(stdout, NULL);
@@ -22,32 +23,25 @@ int main(int argc, char ** argv) {
     close(urandom);
     srand(seed);
 
+    int range;
 
-    while (1) {
+
+    while (scanf ("%d %d %d %d %d %d %d", &car.speed, &car.dir, &car.size, &car.accel_up, &car.accel_down, &car.max_speed, &range) != EOF) {
+
 	car.ts = time(NULL);
-	car.speed = MAX_SPEED - (rand() % (MAX_SPEED / 2));
-	car.dir = rand() % 4;
-	car.size = (rand() % 3) + 1;
+	//car.speed = MAX_SPEED - (rand() % (MAX_SPEED / 2));
+	//car.dir = rand() % 4;
+	//car.size = (rand() % 3) + 1;
 
 	switch (car.dir) {
 	case UP:
 	case RIGHT:
-	    car.pos = -LIMIT;
+	    car.pos = -range;
 	    break;
 	case LEFT:
 	case DOWN:
-	    car.pos = LIMIT-1;
+	    car.pos = range-1;
 	}
-
-	char up[] = "cima";
-	char right[] = "direita";	
-	char down[] = "baixo";
-	char left[] = "esquerda";
-
-	char* directions[] = {up, right, down, left};
-	
-
-	//printf("\nNovo carro, tamanho: %d, direção: %s\n", car.size, directions[car.dir]);
 
 	carro(&car, argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
 	putchar('\n');

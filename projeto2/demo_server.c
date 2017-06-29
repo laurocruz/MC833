@@ -5,7 +5,7 @@
 #include "server.h"
 #include "carro.h"
 
-#define MAX_CARS 1000
+#define MAX_CARS 100
 
 void echo(char * bufout, char * bufin) {
     memcpy(bufout, bufin, MAX_LINE);
@@ -67,10 +67,17 @@ void enter_exit_time(double * enter_time, double * exit_time, Direction dir, int
 
 }
 
+
+#define NADA '0'
+#define FREIE '1'
+#define ACELERE '2'
+#define AMBULANCIA '3'
+
 void security_manager(char * bufout, char * bufin) {
     // 10 ms DELAY - CANT CHANGE
     usleep(10000);
 
+    bufout[1] = '\0';
     static int n = 0;
     static Car cars[MAX_CARS];
     static int crashed[MAX_CARS] = {0};
@@ -80,7 +87,7 @@ void security_manager(char * bufout, char * bufin) {
 
     if (pos == -1) {
 	if (n == MAX_CARS) {
-	    bufout[0] = '2'; bufout[1] = '\0';
+	    bufout[0] = AMBULANCIA;
 	    return;
 	} else {
 	    pos = n++;
@@ -89,23 +96,22 @@ void security_manager(char * bufout, char * bufin) {
     }
 
     if (crashed[pos] == 1) {
-        bufout[0] = '2'; bufout[1] = '\0';
+        bufout[0] = AMBULANCIA;
         // Remove crashed car
         cars[pos] = cars[--n];
         crashed[pos] = crashed[n];
         return;
     }
 
-
     cars[pos].id = atoi(tok);
     int ts = strtoul(strtok(NULL," "), NULL, 10);
 
     if (pos == n-1 || cars[pos].ts < ts) {
-        cars[pos].ts = ts;
-        cars[pos].speed = atoi(strtok(NULL," "));
-        cars[pos].dir = atoi(strtok(NULL," "));
-        cars[pos].size = atoi(strtok(NULL," "));
-        cars[pos].pos = atoi(strtok(NULL," "));
+	cars[pos].ts = ts;
+	cars[pos].speed = atoi(strtok(NULL," "));
+	cars[pos].dir = atoi(strtok(NULL," "));
+	cars[pos].size = atoi(strtok(NULL," "));
+	cars[pos].pos = atoi(strtok(NULL," "));
     }
 
 
@@ -118,14 +124,17 @@ void security_manager(char * bufout, char * bufin) {
 	cars[pos].size,
 	cars[pos].speed);
 
+
     if (pos_exit_time <= 0) {
-	// já passamos do cruzamento, acelera
-	bufout[0] = '1'; bufout[1] = '\0';
+	// já passamos do cruzamento, acelerar e remover
+	bufout[0] = ACELERE;
 	cars[pos] = cars[--n];
 	crashed[pos] = crashed[n];
 	return;
     }
 
+    // padrão é nenhum comando / manter
+    bufout[0] = NADA;
 
     for (int i = 0; i < n; i++) {
 
@@ -140,27 +149,20 @@ void security_manager(char * bufout, char * bufin) {
 	else if ((di == RIGHT || di == LEFT) && (dpos == RIGHT || dpos == LEFT))
 	    continue;
 
-	double i_enter_time, i_exit_time;
-
 	// ajusta posição do outro carro pro tempo atual deste carro;
-	int posi;
-	switch (di) {
-	case UP:
-	case RIGHT:
-	    posi = cars[i].pos + (cars[pos].ts - cars[i].ts)*cars[i].speed;
-	    break;
-	case DOWN:
-	case LEFT:
-	    posi = cars[i].pos - (cars[pos].ts - cars[i].ts)*cars[i].speed;
-	    break;
-	}
+	int posi = cars[i].pos;
+	/* switch (di) { */
+	/* case UP: */
+	/* case RIGHT: */
+	/*     posi = cars[i].pos + (cars[pos].ts - cars[i].ts)*cars[i].speed; */
+	/*     break; */
+	/* case DOWN: */
+	/* case LEFT: */
+	/*     posi = cars[i].pos - (cars[pos].ts - cars[i].ts)*cars[i].speed; */
+	/*     break; */
+	/* } */
 
-	// outro carro já saiu dos limites do mapa, remover
-	if (posi < -LIMIT || posi > LIMIT-1) {
-	    cars[i] = cars[--n];
-	    crashed[i] = crashed[n];
-	    continue;
-	}
+	double i_enter_time, i_exit_time;
 
 	enter_exit_time(
 	    &i_enter_time,
@@ -170,9 +172,12 @@ void security_manager(char * bufout, char * bufin) {
 	    cars[i].size,
 	    cars[i].speed);
 
-	// outro carro já passou do cruzamento
-	if (i_exit_time <= 0)
+	// outro carro já passou do cruzamento, desconsiderar e remover
+	if (i_exit_time <= 0) {
+	    cars[i] = cars[--n];
+	    crashed[i] = crashed[n];
 	    continue;
+	}
 
 	// não há intersecção entre os tempos de passagem do cruzamento
 	if (i_enter_time >= pos_exit_time || pos_enter_time >= i_exit_time)
@@ -183,16 +188,20 @@ void security_manager(char * bufout, char * bufin) {
 
 	    // estamos mais longe do cruzamento, freiar
 	    if (pos_enter_time >= i_enter_time) {
-//		printf ("evitar colisão: %s vel: %d pos: %d size: %d - %s vel: %d pos: %d size: %d\n",
-//			directions[dpos], cars[pos].speed, cars[pos].pos, cars[pos].size,
-//			directions[di], cars[i].speed, posi, cars[i].size);
-//		bufout[0] = '0'; bufout[1] = '\0';
+		printf ("evitar colisão: ID: %d - %s vel: %d pos: %d size: %d - %s vel: %d pos: %d size: %d\n",
+			cars[pos].id, directions[dpos], cars[pos].speed, cars[pos].pos, cars[pos].size,
+			directions[di], cars[i].speed, posi, cars[i].size);
+		bufout[0] = FREIE;
 		return;
-	    } else continue; // caso contrário continuar escaneando
+	    }  else {
+		// preparar pra acelerar, continuar escaneando outros carros
+		bufout[0] = ACELERE;
+		continue;
+	    }
 	}
 
 
-	// já chegamos ao cruzamento, checar se houve colisão
+	// já chegamos ao cruzamento, checar se houve de fato colisão
 
 	if (!check_collision(dpos, cars[pos].pos, cars[pos].size, possible_collision(di)))
 	    continue;
@@ -202,8 +211,8 @@ void security_manager(char * bufout, char * bufin) {
 
 	// bateu :(
 
-	printf ("colisão: %s vel: %d pos: %d size: %d - %s vel: %d pos: %d size: %d\n",
-		directions[dpos], cars[pos].speed, cars[pos].pos, cars[pos].size,
+	printf ("colisão: ID: %d - %s vel: %d pos: %d size: %d - %s vel: %d pos: %d size: %d\n",
+		cars[pos].id, directions[dpos], cars[pos].speed, cars[pos].pos, cars[pos].size,
 		directions[di], cars[i].speed, posi, cars[i].size);
 
 	cars[pos] = cars[n-1];
@@ -214,18 +223,17 @@ void security_manager(char * bufout, char * bufin) {
 	else crashed[pos] = 1;
 	n--;
 
-	bufout[0] = '2'; bufout[1] = '\0';
-	return;
+	bufout[0] = AMBULANCIA;
+	return;    // manter
     }
 
-    // acelera
-    bufout[0] = '1'; bufout[1] = '\0';
+    /**********************************************/
+    /************** nenhum comando - 0 ************/
+    /************** freie - 1 *********************/
+    /************** acelere - 2 *******************/
+    /************** ambulancia - 3 ****************/
+    /**********************************************/
 
-    /**********************************************/
-    /************** freie - 0 *********************/
-    /************** acelere - 1 *******************/
-    /************** ambulancia - 2 ****************/
-    /**********************************************/
 
 }
 

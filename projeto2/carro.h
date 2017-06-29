@@ -4,13 +4,6 @@
 typedef enum {UP, RIGHT, DOWN, LEFT} Direction;
 
 
-#define SPEED_DOWN 3
-#define SPEED_UP 2
-
-#define MAX_SPEED 10
-
-#define LIMIT 20
-
 static char up[] = "sobe";
 static char right[] = "direita";	
 static char down[] = "desce";
@@ -23,8 +16,7 @@ typedef struct car {
     int id;
     long unsigned ts;
     Direction dir;
-    int speed, size;
-    int pos;
+    int speed, size, accel_up, accel_down, max_speed, pos;
 } Car;
 
 int carro(Car * car, char * hostname, int sec_port, int entcon_port, int sec_tcp, int ent_tcp, int con_tcp);
