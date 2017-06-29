@@ -7,6 +7,8 @@
 #include "carro.h"
 #include "client.h"
 
+static int messages = 0, empty = 0, brake = 0, throttle = 0, ambulance = 0;
+
 int security_manager(char * msg, Car * car) {
     // 0 - nenhum comando / manter
     // 1 - freie
@@ -27,29 +29,28 @@ int security_manager(char * msg, Car * car) {
 	break;
     }
 
+    messages++;
+
     car->ts = ts;
 
     if (f == 0) {
-	for (int i = 0; i < car->speed; i++)
-	    putchar('.');
+	empty++;
     } else if (f == 1) {
         if (car->speed >= car->accel_down + 1)
             car->speed -= car->accel_down;
         else
 	    car->speed = 1;
-	for (int i = 0; i < car->speed; i++)
-	    putchar('-');
+	brake++;
     } else if (f == 2) {
 	if (car->speed + car->accel_up < car->max_speed)
 	    car->speed += car->accel_up;
 	else
 	    car->speed = car->max_speed;
 	//      printf("ACELERE\n");
-	for (int i = 0; i < car->speed; i++)
-	    putchar('+');
+	throttle++;
     } else {
         car->speed = 0;
-	putchar('#');
+	ambulance++;
         return 1;
     }
     sleep(1);
@@ -67,29 +68,13 @@ int security_manager(char * msg, Car * car) {
 int entertainment_manager(char * msg, Car * car) {
     // Time until next request
     sleep(10);
-
-    switch (car->dir) {
-    case UP:
-    case RIGHT:
-	return car->pos - car->size >= 0;
-    case DOWN:
-    case LEFT:
-	return car->pos + car->size < 0;
-    }
+    return 0
 }
 
 int confort_manager(char * msg, Car * car) {
     // Time until next request
     sleep(10);
-
-    switch (car->dir) {
-    case UP:
-    case RIGHT:
-	return car->pos - car->size >= 0;
-    case DOWN:
-    case LEFT:
-	return car->pos + car->size < 0;
-    }
+    return 0;
 }
 
 int carro(Car * car, char * hostname, int sec_port, int entcon_port, int sec_tcp, int ent_tcp, int con_tcp) {
@@ -109,7 +94,8 @@ int carro(Car * car, char * hostname, int sec_port, int entcon_port, int sec_tcp
                 client_tcp(hostname, sec_port, car, SECURITY, security_manager);
             else
                 client_udp(hostname, sec_port, car, SECURITY, security_manager);
-
+	    printf("%d %d %d %d %d\n", messages, empty, brake, throttle, ambulance);
+	    exit(ambulance);
         } else if (tid == 1) {
             if (ent_tcp == 1)
                 client_tcp(hostname, entcon_port, car, ENTERTAINMENT, entertainment_manager);

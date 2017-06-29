@@ -25,27 +25,20 @@ int main(int argc, char ** argv) {
 
     int range;
 
+    scanf ("%d %d %d %d %d %d %d", &car.speed, &car.dir, &car.size, &car.accel_up, &car.accel_down, &car.max_speed, &range);
+    car.ts = time(NULL);
 
-    while (scanf ("%d %d %d %d %d %d %d", &car.speed, &car.dir, &car.size, &car.accel_up, &car.accel_down, &car.max_speed, &range) != EOF) {
-
-	car.ts = time(NULL);
-	//car.speed = MAX_SPEED - (rand() % (MAX_SPEED / 2));
-	//car.dir = rand() % 4;
-	//car.size = (rand() % 3) + 1;
-
-	switch (car.dir) {
-	case UP:
-	case RIGHT:
-	    car.pos = -range;
-	    break;
-	case LEFT:
-	case DOWN:
-	    car.pos = range-1;
-	}
-
-	carro(&car, argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
-	putchar('\n');
+    switch (car.dir) {
+    case UP:
+    case RIGHT:
+	car.pos = -range;
+	break;
+    case LEFT:
+    case DOWN:
+	car.pos = range-1;
     }
+
+    carro(&car, argv[1], atoi(argv[2]), atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
 
     return 0;
 
