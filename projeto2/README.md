@@ -87,9 +87,9 @@ colidindo, e tendo que ser chamada a ambulância.
 ## Sistema anti-colisão
 
 Optamos por usar uma heurística simples e pessimista para alertar sobre colisões
-iminentes, calculando intervalos de tempo fracinários em que cada carro vai
-estar no cruzamento, e vendo se há intersecção. o que simplifica a implementação, apesar
-de causar frenagens mais do que o necessário.
+iminentes, calculando intervalos de tempo fracionários em que cada carro vai
+estar no cruzamento, e vendo se há intersecção, o que simplifica a
+implementação, apesar de causar frenagens mais do que o necessário.
 
 A detecção da colisão em si foi implementada de maneira precisa.
 

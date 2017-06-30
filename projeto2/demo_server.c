@@ -150,17 +150,17 @@ void security_manager(char * bufout, char * bufin) {
 	    continue;
 
 	// ajusta posição do outro carro pro tempo atual deste carro;
-	int posi = cars[i].pos;
-	/* switch (di) { */
-	/* case UP: */
-	/* case RIGHT: */
-	/*     posi = cars[i].pos + (cars[pos].ts - cars[i].ts)*cars[i].speed; */
-	/*     break; */
-	/* case DOWN: */
-	/* case LEFT: */
-	/*     posi = cars[i].pos - (cars[pos].ts - cars[i].ts)*cars[i].speed; */
-	/*     break; */
-	/* } */
+	int posi;
+	switch (di) {
+	case UP:
+	case RIGHT:
+	    posi = cars[i].pos + (cars[pos].ts - cars[i].ts)*cars[i].speed;
+	    break;
+	case DOWN:
+	case LEFT:
+	    posi = cars[i].pos - (cars[pos].ts - cars[i].ts)*cars[i].speed;
+	    break;
+	}
 
 	double i_enter_time, i_exit_time;
 
