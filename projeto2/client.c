@@ -9,6 +9,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <time.h>
 
 #include "client.h"
 
@@ -60,7 +61,9 @@ int client_tcp(char * hostname, int port, Car * car, char app, int (*app_fun)(ch
     //struct sockaddr_in local_address;
     char buf[MAX_LINE];
     int s;
-
+    int roundtrip_count = 0;
+    long long latency_sum = 0;
+    
     get_socket(&socket_address, &s, hostname, port, SOCK_STREAM);
 
     /* ler e enviar linhas de texto, receber eco */
@@ -69,6 +72,8 @@ int client_tcp(char * hostname, int port, Car * car, char app, int (*app_fun)(ch
     while (1) {
         make_msg(buf, app, car);
 
+	struct timespec now, start;
+	clock_gettime(CLOCK_MONOTONIC, &start);
         /* Envia texto */
         if (send(s, buf, MAX_LINE, 0) == -1) {
             perror("ERROR: unable to send data");
@@ -80,7 +85,12 @@ int client_tcp(char * hostname, int port, Car * car, char app, int (*app_fun)(ch
             perror("ERROR: unable to receive data");
             exit(errno);
         }
-
+	clock_gettime(CLOCK_MONOTONIC, &now);
+	
+	latency_sum += (now.tv_nsec - start.tv_nsec)
+	    + (now.tv_sec - start.tv_sec)*1000000000;
+	roundtrip_count++;
+	
         /******************************************/
         /**************** DO STUFF ****************/
         if (app_fun(buf, car) != 0)
@@ -89,6 +99,9 @@ int client_tcp(char * hostname, int port, Car * car, char app, int (*app_fun)(ch
 
         memset(buf, '\0', MAX_LINE);
     }
+
+    if (roundtrip_count)
+      printf ("avg. TCP latency = %lld\n", latency_sum/(1000000 * roundtrip_count));
 
     /* Fecha o socket do cliente */
     if (close(s) == -1) {
@@ -110,8 +123,17 @@ int client_udp(char * hostname, int port, Car * car, char app, int (*app_fun)(ch
     /* ler e enviar linhas de texto, receber eco */
     memset(buf, '\0', MAX_LINE);
 
+    int roundtrip_count = 0;
+    long long latency_sum = 0;
+
+
     while (1) {
         make_msg(buf, app, car);
+
+	
+	struct timespec now, start;
+	clock_gettime(CLOCK_MONOTONIC, &start);
+
 
         /* Envia mensagem */
         socklen_t len = sizeof(socket_address);
@@ -126,6 +148,13 @@ int client_udp(char * hostname, int port, Car * car, char app, int (*app_fun)(ch
             exit(errno);
         }
 
+	clock_gettime(CLOCK_MONOTONIC, &now);
+	
+	latency_sum += (now.tv_nsec - start.tv_nsec)
+	    + (now.tv_sec - start.tv_sec)*1000000000;
+	roundtrip_count++;
+
+
         /******************************************/
         /**************** DO STUFF ****************/
         if (app_fun(buf, car) != 0)
@@ -134,6 +163,9 @@ int client_udp(char * hostname, int port, Car * car, char app, int (*app_fun)(ch
 
         memset(buf, '\0', MAX_LINE);
     }
+
+    if (roundtrip_count)
+    printf ("avg. UDP latency = %lld\n", latency_sum/(1000000 * roundtrip_count));
 
     /* Fecha o socket do cliente */
     if (close(s) == -1) {
